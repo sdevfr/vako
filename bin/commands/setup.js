@@ -93,8 +93,17 @@ class SetupWizard {
       console.clear();
       await this.showWelcome();
       await this.gatherProjectInfo();
-      await this.selectCodeType();
-      await this.selectLanguage();
+      
+      // Sélection du type de code (EJS, TypeScript, Next.js)
+      if (typeof this.selectCodeType === 'function') {
+        await this.selectCodeType();
+      }
+      
+      // Sélection de la langue du site
+      if (typeof this.selectLanguage === 'function') {
+        await this.selectLanguage();
+      }
+      
       await this.selectTemplate();
       await this.selectFeatures();
       await this.configureDatabase();
@@ -234,21 +243,28 @@ class SetupWizard {
       }
     ];
 
-    const { codeType } = await inquirer.prompt([{
-      type: 'list',
-      name: 'codeType',
-      message: '🎯 Select your preferred code type:',
-      choices: codeTypeChoices.map(choice => ({
-        name: choice.name,
-        value: choice.value
-      })),
-      pageSize: 10
-    }]);
+    try {
+      const { codeType } = await inquirer.prompt([{
+        type: 'list',
+        name: 'codeType',
+        message: '🎯 Select your preferred code type:',
+        choices: codeTypeChoices.map(choice => ({
+          name: choice.name,
+          value: choice.value
+        })),
+        pageSize: 10
+      }]);
 
-    this.config.codeType = codeType;
-    
-    const selectedChoice = codeTypeChoices.find(c => c.value === codeType);
-    console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+      this.config.codeType = codeType || 'ejs'; // Par défaut EJS
+      
+      const selectedChoice = codeTypeChoices.find(c => c.value === codeType);
+      if (selectedChoice) {
+        console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+      }
+    } catch (error) {
+      console.error(chalk.red('Error selecting code type:'), error.message);
+      this.config.codeType = 'ejs'; // Par défaut EJS en cas d'erreur
+    }
   }
 
   /**
