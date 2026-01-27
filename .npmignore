@@ -1,0 +1,59 @@
+# Development files
+node_modules/
+coverage/
+.nyc_output/
+*.log
+logs/
+*.test.js
+*.spec.js
+test/
+tests/
+__tests__/
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Documentation (keep README.md and LICENSE)
+docs/
+examples/
+QUICK_START_NEXTJS.md
+*.md
+!README.md
+
+# Build artifacts
+dist/
+build/
+*.map
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Test files
+test.bat
+verification-report*.json
+verification-report*.html
+verify-code.js
+
+# Development scripts
+scripts/
