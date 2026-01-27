@@ -587,7 +587,7 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
     });
 
     console.log(completionBox);
-    console.log(chalk.rainbow('\n✨ Happy coding with Vako! ✨\n'));
+    console.log(gradient.rainbow('\n✨ Happy coding with Vako! ✨\n'));
   }
 
   /**
