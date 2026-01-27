@@ -587,7 +587,18 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
     });
 
     console.log(completionBox);
-    console.log(gradient.rainbow('\n✨ Happy coding with Vako! ✨\n'));
+    
+    // Utiliser gradient.rainbow avec fallback sur chalk.green
+    try {
+      if (gradient && typeof gradient.rainbow === 'function') {
+        console.log(gradient.rainbow('\n✨ Happy coding with Vako! ✨\n'));
+      } else {
+        console.log(chalk.green('\n✨ Happy coding with Vako! ✨\n'));
+      }
+    } catch (error) {
+      // Fallback si gradient.rainbow échoue
+      console.log(chalk.green('\n✨ Happy coding with Vako! ✨\n'));
+    }
   }
 
   /**
