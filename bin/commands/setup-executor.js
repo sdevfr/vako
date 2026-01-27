@@ -1046,7 +1046,7 @@ document.head.appendChild(style);
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.19'
+        vako: '^1.3.21'
       },
       devDependencies: {
         '@types/node': '^20.10.5',
