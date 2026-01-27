@@ -651,12 +651,23 @@ class SetupWizard {
    * Génération du résumé de configuration
    */
   generateSummary() {
-    const { projectName, template, features, database, auth, plugins, styling, theme, codeType } = this.config;
+    const { projectName, template, features, database, auth, plugins, styling, theme, codeType, language } = this.config;
     
     const codeTypeLabels = {
       'ejs': '📄 EJS',
       'typescript': '📘 TypeScript',
       'nextjs': '⚛️ Next.js'
+    };
+
+    const languageLabels = {
+      'fr': '🇫🇷 Français',
+      'en': '🇬🇧 English',
+      'es': '🇪🇸 Español',
+      'de': '🇩🇪 Deutsch',
+      'it': '🇮🇹 Italiano',
+      'pt': '🇵🇹 Português',
+      'nl': '🇳🇱 Nederlands',
+      'multi': '🌐 Multi-language'
     };
     
     return chalk.white(`
@@ -664,6 +675,7 @@ class SetupWizard {
 📝 Description: ${chalk.gray(this.config.description)}
 👤 Author: ${chalk.green(this.config.author)}
 💻 Code Type: ${chalk.cyan(codeTypeLabels[codeType] || codeType)}
+🌍 Language: ${chalk.magenta(languageLabels[language] || language)}
 🎨 Template: ${chalk.yellow(template)}
 🗄️  Database: ${chalk.blue(database)}
 🔐 Auth: ${chalk.magenta(auth.enabled ? '✅ Enabled' : '❌ Disabled')}
