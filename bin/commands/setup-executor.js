@@ -825,6 +825,70 @@ footer a:hover {
 }
 `;
 
+    // views/error.ejs
+    files['views/error.ejs'] = `<!DOCTYPE html>
+<html lang="${langAttr}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .error-container {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .error-code {
+      font-size: 6rem;
+      font-weight: bold;
+      color: var(--danger-color);
+      margin-bottom: 1rem;
+    }
+    .error-message {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--gray);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="container">
+        <h1 class="logo">${projectName}</h1>
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="error-container">
+      <div class="error-code"><%= error.status || 500 %></div>
+      <h1><%= title %></h1>
+      <p class="error-message"><%= message %></p>
+      <% if (error.stack && process.env.NODE_ENV === 'development') { %>
+        <pre style="text-align: left; background: #f5f5f5; padding: 1rem; border-radius: 8px; overflow-x: auto;"><%= error.stack %></pre>
+      <% } %>
+      <div class="cta-buttons" style="margin-top: 2rem;">
+        <a href="/" class="btn btn-primary">Go Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; ${new Date().getFullYear()} ${projectName}. Built with <a href="https://vako.js.org" target="_blank">Vako</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
+`;
+
     // public/js/main.js
     files['public/js/main.js'] = `// Vako Application JavaScript
 console.log('🚀 Vako application loaded');
