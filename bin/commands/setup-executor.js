@@ -125,7 +125,8 @@ class SetupExecutor {
         'middleware',
         'plugins',
         'data',
-        'utils'
+        'utils',
+        'locales' // Dossier pour les traductions
       ];
 
       const templateDirectories = {
@@ -236,8 +237,11 @@ class SetupExecutor {
   }
 
   generateEjsFiles() {
-    const { projectName, description, author, license } = this.config;
+    const { projectName, description, author, license, language } = this.config;
     const files = {};
+    
+    // Générer les fichiers de traduction selon la langue
+    const translations = this.getTranslations(language);
 
     // package.json
     files['package.json'] = JSON.stringify({

@@ -18,6 +18,7 @@ class SetupWizard {
       projectName: '',
       template: 'default',
       codeType: 'ejs', // 'ejs', 'typescript', 'nextjs'
+      language: 'fr', // 'fr', 'en', 'es', 'de', etc.
       features: [],
       database: 'sqlite',
       auth: { enabled: false },
@@ -245,6 +246,72 @@ class SetupWizard {
     this.config.codeType = codeType;
     
     const selectedChoice = codeTypeChoices.find(c => c.value === codeType);
+    console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+  }
+
+  /**
+   * Sélection de la langue du site
+   */
+  async selectLanguage() {
+    console.log(chalk.blue.bold('\n🌍 Choose Your Site Language\n'));
+
+    const languageChoices = [
+      {
+        name: '🇫🇷 Français - French',
+        value: 'fr',
+        description: 'French language for your site'
+      },
+      {
+        name: '🇬🇧 English - English',
+        value: 'en',
+        description: 'English language for your site'
+      },
+      {
+        name: '🇪🇸 Español - Spanish',
+        value: 'es',
+        description: 'Spanish language for your site'
+      },
+      {
+        name: '🇩🇪 Deutsch - German',
+        value: 'de',
+        description: 'German language for your site'
+      },
+      {
+        name: '🇮🇹 Italiano - Italian',
+        value: 'it',
+        description: 'Italian language for your site'
+      },
+      {
+        name: '🇵🇹 Português - Portuguese',
+        value: 'pt',
+        description: 'Portuguese language for your site'
+      },
+      {
+        name: '🇳🇱 Nederlands - Dutch',
+        value: 'nl',
+        description: 'Dutch language for your site'
+      },
+      {
+        name: '🌐 Multi-language - Multiple languages',
+        value: 'multi',
+        description: 'Support for multiple languages'
+      }
+    ];
+
+    const { language } = await inquirer.prompt([{
+      type: 'list',
+      name: 'language',
+      message: '🌍 Select the language for your site:',
+      choices: languageChoices.map(choice => ({
+        name: choice.name,
+        value: choice.value
+      })),
+      pageSize: 10
+    }]);
+
+    this.config.language = language;
+    
+    const selectedChoice = languageChoices.find(c => c.value === language);
     console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
   }
 
