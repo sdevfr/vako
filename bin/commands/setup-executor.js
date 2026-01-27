@@ -258,7 +258,7 @@ class SetupExecutor {
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.19',
+        vako: '^1.3.21',
         'express-session': '^1.17.3'
       }
     }, null, 2);
@@ -1177,7 +1177,7 @@ coverage/
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.19',
+        vako: '^1.3.21',
         next: '^14.0.0',
         react: '^18.2.0',
         'react-dom': '^18.2.0'
