@@ -93,6 +93,8 @@ class SetupWizard {
       console.clear();
       await this.showWelcome();
       await this.gatherProjectInfo();
+      await this.selectCodeType();
+      await this.selectLanguage();
       await this.selectTemplate();
       await this.selectFeatures();
       await this.configureDatabase();
