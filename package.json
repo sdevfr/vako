@@ -5,14 +5,14 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "bin": {
-    "vako": "./bin/veko.js",
-    "create-vako-app": "./bin/create-veko-app.js",
-    "vako-update": "./bin/veko-update.js"
+    "vako": "./bin/vako.js",
+    "create-vako-app": "./bin/create-vako-app.js",
+    "vako-update": "./bin/vako-update.js"
   },
   "scripts": {
-    "dev": "node bin/veko.js dev",
-    "build": "node bin/veko.js build",
-    "start": "node bin/veko.js start",
+    "dev": "node bin/vako.js dev",
+    "build": "node bin/vako.js build",
+    "start": "node bin/vako.js start",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:security": "npm audit && node scripts/security-check.js",
@@ -58,12 +58,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wiltark/veko.js.git"
+    "url": "git+https://github.com/sdevfr/vako.git"
   },
   "bugs": {
-    "url": "https://github.com/wiltark/veko.js/issues"
+    "url": "https://github.com/sdevfr/vako/issues"
   },
-  "homepage": "https://veko.js.org",
+  "homepage": "https://vako.js.org",
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
@@ -168,7 +168,6 @@
     "README.md",
     "LICENSE",
     "CHANGELOG.md",
-    "tsconfig.json",
     "tsconfig.json"
   ],
   "preferGlobal": true,
