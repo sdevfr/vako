@@ -790,6 +790,48 @@ module.exports = router;
     }
   }
 
+  getTranslations(language) {
+    const translations = {
+      fr: {
+        welcome: 'Bienvenue dans votre application Vako!',
+        title: 'Bienvenue sur',
+        description: 'Une application web moderne construite avec Vako'
+      },
+      en: {
+        welcome: 'Welcome to your Vako application!',
+        title: 'Welcome to',
+        description: 'A modern web application built with Vako'
+      },
+      es: {
+        welcome: '¡Bienvenido a tu aplicación Vako!',
+        title: 'Bienvenido a',
+        description: 'Una aplicación web moderna construida con Vako'
+      },
+      de: {
+        welcome: 'Willkommen in Ihrer Vako-Anwendung!',
+        title: 'Willkommen bei',
+        description: 'Eine moderne Webanwendung, die mit Vako erstellt wurde'
+      },
+      it: {
+        welcome: 'Benvenuto nella tua applicazione Vako!',
+        title: 'Benvenuto in',
+        description: 'Un\'applicazione web moderna costruita con Vako'
+      },
+      pt: {
+        welcome: 'Bem-vindo à sua aplicação Vako!',
+        title: 'Bem-vindo a',
+        description: 'Uma aplicação web moderna construída com Vako'
+      },
+      nl: {
+        welcome: 'Welkom bij uw Vako-applicatie!',
+        title: 'Welkom bij',
+        description: 'Een moderne webapplicatie gebouwd met Vako'
+      }
+    };
+
+    return translations[language] || translations.en;
+  }
+
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
