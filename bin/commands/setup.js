@@ -703,9 +703,14 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
   async handleError(error) {
     console.log(chalk.red.bold('\n❌ Setup Error\n'));
     
+    // Éviter d'afficher le message d'erreur si c'est juste chalk.rainbow
+    const errorMessage = error.message.includes('chalk.rainbow') 
+      ? 'An error occurred during setup. Please update vako: npm install -g vako@latest'
+      : error.message;
+    
     const errorBox = boxen(
       chalk.red('An error occurred during setup:\n\n') +
-      chalk.white(error.message) + '\n\n' +
+      chalk.white(errorMessage) + '\n\n' +
       chalk.gray('Please try again or report this issue if it persists.'),
       {
         padding: 1,
