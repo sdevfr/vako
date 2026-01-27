@@ -154,21 +154,37 @@ program
   .command('update')
   .description('Gestionnaire de mise à jour Vako')
   .allowUnknownOption(true)
-  .action(() => {
-    // Exécuter vako-update avec les mêmes arguments
-    const updateBin = path.join(__dirname, 'vako-update.js'); // Note: fichier garde le nom vako-update.js pour compatibilité
-    if (fs.existsSync(updateBin)) {
-      const { execSync } = require('child_process');
-      try {
-        execSync(`node "${updateBin}" ${process.argv.slice(3).join(' ')}`, { 
-          stdio: 'inherit' 
-        });
-      } catch (error) {
-        console.error('Erreur lors du lancement de l\'auto-updater');
+  .action(async () => {
+    try {
+      // Essayer d'abord avec le fichier vako-update.js
+      const updateBin = path.join(__dirname, 'vako-update.js');
+      if (fs.existsSync(updateBin)) {
+        const { execSync } = require('child_process');
+        try {
+          execSync(`node "${updateBin}" ${process.argv.slice(3).join(' ')}`, { 
+            stdio: 'inherit' 
+          });
+          return;
+        } catch (error) {
+          // Si ça échoue, essayer directement avec AutoUpdater
+        }
+      }
+      
+      // Fallback: utiliser directement AutoUpdater
+      const AutoUpdater = require('../lib/core/auto-updater');
+      const args = process.argv.slice(3);
+      
+      if (typeof AutoUpdater.handleCLI === 'function') {
+        await AutoUpdater.init();
+        await AutoUpdater.handleCLI(args);
+      } else {
+        console.error('L\'auto-updater n\'est pas disponible');
+        console.error('Essayez: npm install -g vako@latest');
         process.exit(1);
       }
-    } else {
-      console.error('L\'auto-updater n\'est pas disponible');
+    } catch (error) {
+      console.error('Erreur lors du lancement de l\'auto-updater:', error.message);
+      console.error('Essayez: npm install -g vako@latest');
       process.exit(1);
     }
   });
