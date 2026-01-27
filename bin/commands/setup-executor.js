@@ -317,8 +317,9 @@ module.exports = router;
 `;
 
     // views/index.ejs
+    const langAttr = language === 'multi' ? 'fr' : language;
     files['views/index.ejs'] = `<!DOCTYPE html>
-<html lang="en">
+<html lang="${langAttr}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -326,10 +327,29 @@ module.exports = router;
 </head>
 <body>
   <h1><%= title %></h1>
-  <p>Welcome to your Vako application!</p>
+  <p>${translations.welcome || 'Welcome to your Vako application!'}</p>
 </body>
 </html>
 `;
+
+    // Créer les fichiers de traduction
+    if (language === 'multi') {
+      files['locales/fr.json'] = JSON.stringify({
+        welcome: 'Bienvenue dans votre application Vako!',
+        title: 'Bienvenue sur ${projectName}'
+      }, null, 2);
+      files['locales/en.json'] = JSON.stringify({
+        welcome: 'Welcome to your Vako application!',
+        title: 'Welcome to ${projectName}'
+      }, null, 2);
+      files['locales/es.json'] = JSON.stringify({
+        welcome: '¡Bienvenido a tu aplicación Vako!',
+        title: 'Bienvenido a ${projectName}'
+      }, null, 2);
+    } else {
+      // Fichier de traduction pour une seule langue
+      files[`locales/${language}.json`] = JSON.stringify(translations, null, 2);
+    }
 
     // public/css/style.css
     files['public/css/style.css'] = `body {
