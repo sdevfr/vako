@@ -32,15 +32,47 @@ program
   .option('-w, --watch <dirs>', 'Watch directories', 'views,routes,public')
   .action(async (options) => {
     try {
-      const devServer = new DevServer({
-        port: parseInt(options.port),
-        file: options.file,
-        watchDirs: options.watch.split(',')
+      const { App } = require('../index');
+      const path = require('path');
+      const fs = require('fs');
+      
+      // Vérifier si le fichier d'entrée existe
+      const entryFile = path.resolve(process.cwd(), options.file);
+      if (fs.existsSync(entryFile)) {
+        // Charger le fichier d'entrée de l'utilisateur s'il existe
+        try {
+          require(entryFile);
+        } catch (err) {
+          console.warn(chalk.yellow(`⚠️  Warning: Could not load ${options.file}: ${err.message}`));
+        }
+      }
+      
+      // Créer l'application en mode développement
+      const port = parseInt(options.port);
+      const wsPort = port + 8;
+      
+      const app = new App({
+        port: port,
+        wsPort: wsPort,
+        isDev: true,
+        watchDirs: options.watch.split(',').map(dir => dir.trim()),
+        routesDir: 'routes',
+        viewsDir: 'views',
+        staticDir: 'public'
       });
       
-      await devServer.start();
+      // Utiliser la méthode startDev qui configure automatiquement le devServer
+      app.startDev(port);
+      
+      console.log(chalk.green(`\n🚀 Vako dev server running on http://localhost:${port}`));
+      console.log(chalk.cyan(`📡 WebSocket server on ws://localhost:${wsPort}`));
+      console.log(chalk.gray(`\n👀 Watching: ${options.watch}\n`));
+      
     } catch (error) {
       console.error(chalk.red('❌ Error starting dev server:'), error.message);
+      if (error.stack) {
+        console.error(chalk.gray(error.stack));
+      }
       process.exit(1);
     }
   });
