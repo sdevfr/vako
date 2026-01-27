@@ -19,9 +19,9 @@ require('module')._initPaths();
 const program = new Command();
 
 program
-  .name('veko')
-  .description('Veko.js Framework CLI')
-  .version('1.1.0');
+  .name('vako')
+  .description('Vako Framework CLI')
+  .version('1.3.0');
 
 // ============= DEV COMMAND =============
 program
@@ -82,7 +82,7 @@ program
   .action(async (projectNameArg, options) => {
     if (options.quick) {
       const quickConfig = {
-        projectName: projectNameArg || 'veko-app',
+        projectName: projectNameArg || 'vako-app',
         template: options.template || 'default',
         features: options.features ? options.features.split(',') : ['hotreload', 'layouts'],
         database: options.db || 'sqlite',
@@ -152,11 +152,11 @@ program
 // Ajout de la commande update qui servira de passerelle vers veko-update
 program
   .command('update')
-  .description('Gestionnaire de mise à jour Veko')
+  .description('Gestionnaire de mise à jour Vako')
   .allowUnknownOption(true)
   .action(() => {
     // Exécuter veko-update avec les mêmes arguments
-    const updateBin = path.join(__dirname, 'veko-update.js');
+    const updateBin = path.join(__dirname, 'veko-update.js'); // Note: fichier garde le nom veko-update.js pour compatibilité
     if (fs.existsSync(updateBin)) {
       const { execSync } = require('child_process');
       try {
@@ -176,13 +176,13 @@ program
 program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {
-  console.log('\n🚀 Veko.js v' + version + ' - Ultra-modern Node.js framework\n');
+  console.log('\n🚀 Vako v' + version + ' - Ultra-modern Node.js framework\n');
   console.log('Available commands:');
   console.log('  dev      Start development server with hot reload');
-  console.log('  setup    Set up a new Veko.js project');
+  console.log('  setup    Set up a new Vako project');
   console.log('  verify   Verify code quality and security');
-  console.log('  update   Gestionnaire de mise à jour Veko');
-  console.log('\nRun `veko <command> --help` for more information on specific commands.');
-  console.log('\nDocumentation: https://veko.js.org');
+  console.log('  update   Gestionnaire de mise à jour Vako');
+  console.log('\nRun `vako <command> --help` for more information on specific commands.');
+  console.log('\nDocumentation: https://github.com/sdevfr/vako');
   process.exit(0);
 }

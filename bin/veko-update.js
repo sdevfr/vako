@@ -24,27 +24,27 @@ function emergencyRepair() {
         
         console.error('✅ package.json trouvé');
         
-        // Vérifier l'installation de veko
+        // Vérifier l'installation de vako
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-        const vekoVersion = packageJson.dependencies?.veko || 
-                           packageJson.devDependencies?.veko || 
-                           packageJson.peerDependencies?.veko;
-        
-        if (!vekoVersion) {
-            console.error('⚠️ Veko non trouvé dans package.json');
-            console.error('🔧 Installation de veko...');
+        const vakoVersion = packageJson.dependencies?.vako || 
+                           packageJson.devDependencies?.vako || 
+                           packageJson.peerDependencies?.vako;
+
+        if (!vakoVersion) {
+            console.error('⚠️ Vako non trouvé dans package.json');
+            console.error('🔧 Installation de vako...');
             
             const { execSync } = require('child_process');
             try {
-                execSync('npm install veko@latest', { stdio: 'inherit' });
-                console.error('✅ Veko installé avec succès');
+                execSync('npm install vako@latest', { stdio: 'inherit' });
+                console.error('✅ Vako installé avec succès');
                 return true;
             } catch (error) {
                 console.error('❌ Échec de l\'installation:', error.message);
                 return false;
             }
         } else {
-            console.error(`✅ Veko v${vekoVersion.replace(/[\^~>=<]/g, '')} détecté`);
+            console.error(`✅ Vako v${vakoVersion.replace(/[\^~>=<]/g, '')} détecté`);
             return true;
         }
         
@@ -135,7 +135,7 @@ async function main() {
             console.error('\n🔧 DIAGNOSTIC:');
             console.error('L\'auto-updater semble être corrompu ou incompatible.');
             console.error('\n💡 SOLUTIONS:');
-            console.error('1. Réinstallez veko: npm install veko@latest');
+            console.error('1. Réinstallez vako: npm install vako@latest');
             console.error('2. Nettoyez le cache npm: npm cache clean --force');
             console.error('3. Supprimez node_modules et réinstallez: rm -rf node_modules && npm install');
         } else if (error.message.includes('Timeout')) {
@@ -144,10 +144,10 @@ async function main() {
             console.error('\n💡 SOLUTIONS:');
             console.error('1. Vérifiez votre connexion internet');
             console.error('2. Essayez à nouveau dans quelques minutes');
-            console.error('3. Utilisez: veko update fix pour réparer');
+            console.error('3. Utilisez: vako update fix pour réparer');
         } else {
             console.error('\n💡 Pour réparer automatiquement l\'auto-updater:');
-            console.error('npm install veko@latest');
+            console.error('npm install vako@latest');
         }
         
         if (process.env.DEBUG) {
@@ -176,7 +176,7 @@ process.on('uncaughtException', (error) => {
     
     if (error.message && error.message.includes('not a function')) {
         console.error('\n🔧 L\'auto-updater est corrompu.');
-        console.error('Exécutez: npm install veko@latest');
+        console.error('Exécutez: npm install vako@latest');
     }
     
     if (process.env.DEBUG) {

@@ -8,19 +8,19 @@ const QuickSetup = require('./commands/quick-setup');
 const program = new Command();
 
 program
-  .name('create-veko-app')
-  .description('Create a new Veko.js application')
-  .version('1.1.0')
+  .name('create-vako-app')
+  .description('Create a new Vako application')
+  .version('1.3.0')
   .argument('[project-name]', 'Name of the project')
   .option('--template <template>', 'Template to use')
   .option('--quick', 'Quick setup with minimal questions')
   .option('--wizard', 'Full interactive wizard')
   .action(async (projectName, options) => {
-    console.log(chalk.blue.bold('🚀 Create Veko App\n'));
+    console.log(chalk.blue.bold('🚀 Create Vako App\n'));
 
     if (!projectName) {
       console.log(chalk.red('❌ Project name is required'));
-      console.log(chalk.gray('Usage: npx create-veko-app my-app'));
+      console.log(chalk.gray('Usage: npx create-vako-app my-app'));
       process.exit(1);
     }
 

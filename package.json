@@ -5,9 +5,9 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "bin": {
-    "veko": "./bin/veko.js",
-    "create-veko-app": "./bin/create-veko-app.js",
-    "veko-update": "./bin/veko-update.js"
+    "vako": "./bin/veko.js",
+    "create-vako-app": "./bin/create-veko-app.js",
+    "vako-update": "./bin/veko-update.js"
   },
   "scripts": {
     "dev": "node bin/veko.js dev",
@@ -19,7 +19,7 @@
     "lint": "eslint lib/ bin/ --fix",
     "lint:check": "eslint lib/ bin/",
 
-    "postinstall": "echo '🚀 Veko.js installé avec succès!'",
+    "postinstall": "echo '🚀 Vako installé avec succès!'",
     "demo": "node examples/demo.js",
     "verify": "node verify-code.js",
     "prepublish": "node scripts/pre-publish.js",
