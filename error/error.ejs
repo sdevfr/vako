@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= (locals.lang === 'fr' ? 'Erreur' : 'Error') %> <%= status || 500 %> - Veko.js</title>
+    <title><%= (locals.lang === 'fr' ? 'Erreur' : 'Error') %> <%= status || 500 %> - Vako</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,7 +103,7 @@
                 <div class="flex items-center space-x-3 mb-4 sm:mb-0">
                     <div class="text-3xl animate-float"><%= errorType?.icon || '❌' %></div>
                     <div>
-                        <h1 class="text-2xl font-bold tracking-tight">Veko.js</h1>
+                        <h1 class="text-2xl font-bold tracking-tight">Vako</h1>
                         <p class="text-sm text-white/70"><%= locals.lang === 'fr' ? 'Framework développement' : 'Development Framework' %></p>
                     </div>
                 </div>
@@ -285,7 +285,7 @@
                             <% } else { %>
                                 <div class="p-4 bg-white/5 rounded-lg">
                                     <h4 class="font-medium mb-2"><%= locals.lang === 'fr' ? 'Consulter la documentation' : 'Check the documentation' %></h4>
-                                    <p class="text-white/70"><%= locals.lang === 'fr' ? 'Pour plus d\'informations sur cette erreur et comment la résoudre, consultez la documentation de Veko.js.' : 'For more information about this error and how to solve it, check the Veko.js documentation.' %></p>
+                                    <p class="text-white/70"><%= locals.lang === 'fr' ? 'Pour plus d\'informations sur cette erreur et comment la résoudre, consultez la documentation de Vako.' : 'For more information about this error and how to solve it, check the Vako documentation.' %></p>
                                 </div>
                             <% } %>
                             <div class="p-4 bg-white/5 rounded-lg">
@@ -301,7 +301,7 @@
         <!-- Footer -->
         <footer class="py-6 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent to-black/20">
             <div class="max-w-7xl mx-auto text-center text-sm text-white/50">
-                <p>Veko.js Framework • <span class="bg-white/10 px-2 py-1 rounded text-xs"><%= env %></span></p>
+                <p>Vako Framework • <span class="bg-white/10 px-2 py-1 rounded text-xs"><%= env %></span></p>
                 <p class="mt-2 text-xs">
                     <%= locals.lang === 'fr' ? 'Pour désactiver cette page d\'erreur détaillée en production, définissez' : 'To disable this detailed error page in production, set' %> <code class="bg-white/10 px-1 rounded">NODE_ENV=production</code>
                 </p>

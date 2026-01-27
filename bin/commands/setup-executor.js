@@ -174,7 +174,7 @@ class SetupExecutor {
     try {
       execSync('git init', { cwd: this.projectPath, stdio: 'pipe' });
       execSync('git add .', { cwd: this.projectPath, stdio: 'pipe' });
-      execSync('git commit -m "🎉 Initial commit - Created with Veko.js"', { 
+      execSync('git commit -m "🎉 Initial commit - Created with Vako"', { 
         cwd: this.projectPath, 
         stdio: 'pipe' 
       });

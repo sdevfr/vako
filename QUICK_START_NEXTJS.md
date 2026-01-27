@@ -1,4 +1,4 @@
-# 🚀 Guide Rapide - Veko.js avec Next.js et TypeScript
+# 🚀 Guide Rapide - Vako avec Next.js et TypeScript
 
 ## ✅ Ce qui a été ajouté
 
@@ -9,8 +9,8 @@
 
 2. **Adaptateur Next.js**
    - `lib/adapters/nextjs-adapter.js` - Intégration avec Next.js
-   - Support des routes Veko dans Next.js
-   - Support des plugins Veko dans Next.js
+   - Support des routes Vako dans Next.js
+   - Support des plugins Vako dans Next.js
 
 3. **Documentation**
    - `docs/nextjs-integration.md` - Guide complet
@@ -35,7 +35,7 @@ npm install -D typescript @types/react @types/node
 
 ```typescript
 // app.ts
-import { App } from 'veko';
+import { App } from 'vako';
 
 const app = new App({
   port: 3000,
@@ -52,10 +52,10 @@ app.listen();
 // server.js
 const express = require('express');
 const next = require('next');
-const { App, NextJsAdapter } = require('veko');
+const { App, NextJsAdapter } = require('vako');
 
-const vekoApp = new App({ port: 3001 });
-vekoApp.loadRoutes();
+const vakoApp = new App({ port: 3001 });
+vakoApp.loadRoutes();
 
 const nextApp = next({ dev: true });
 const handle = nextApp.getRequestHandler();
@@ -65,11 +65,11 @@ nextApp.prepare().then(() => {
   
   const adapter = new NextJsAdapter({
     nextApp: server,
-    enableVekoRoutes: true,
-    routePrefix: '/api/veko'
+    enableVakoRoutes: true,
+    routePrefix: '/api/vako'
   });
   
-  adapter.integrateRoutes(vekoApp);
+  adapter.integrateRoutes(vakoApp);
   
   server.get('*', (req, res) => handle(req, res));
   server.listen(3000);
@@ -85,11 +85,11 @@ Voir `docs/nextjs-integration.md` pour plus de détails.
 Les types sont disponibles dans `types/index.d.ts` et sont automatiquement détectés par TypeScript.
 
 ```typescript
-import { App, VekoOptions, Plugin } from 'veko';
+import { App, VakoOptions, Plugin } from 'vako';
 ```
 
 ## ⚠️ Notes importantes
 
 - Le support TypeScript est **optionnel** - le framework fonctionne toujours en JavaScript pur
-- L'adaptateur Next.js est **optionnel** - vous pouvez utiliser Veko.js seul
+- L'adaptateur Next.js est **optionnel** - vous pouvez utiliser Vako seul
 - Les types TypeScript sont disponibles mais le code source reste en JavaScript pour compatibilité

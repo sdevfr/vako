@@ -17,10 +17,10 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/lang/fr/).
 
 - **Adaptateur Next.js**
   - Nouveau module `lib/adapters/nextjs-adapter.js`
-  - Intégration des routes Veko.js avec Next.js
-  - Support des plugins Veko.js dans Next.js
+  - Intégration des routes Vako avec Next.js
+  - Support des plugins Vako dans Next.js
   - Génération automatique de fichiers API Next.js
-  - Middleware pour exposer les fonctionnalités Veko dans Next.js
+  - Middleware pour exposer les fonctionnalités Vako dans Next.js
 
 - **Documentation**
   - Guide d'intégration Next.js (`docs/nextjs-integration.md`)
@@ -59,5 +59,5 @@ et ce projet adhère à [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
-[1.3.0]: https://github.com/wiltark/veko.js/compare/v1.2.2...v1.3.0
-[1.2.2]: https://github.com/wiltark/veko.js/releases/tag/v1.2.2
+[1.3.0]: https://github.com/sdevfr/vako/compare/v1.2.2...v1.3.0
+[1.2.2]: https://github.com/sdevfr/vako/releases/tag/v1.2.2

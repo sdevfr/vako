@@ -61,12 +61,12 @@ program
 
 // Show help if no arguments
 if (process.argv.length <= 2) {
-  console.log(chalk.blue.bold('🚀 Create Veko App\n'));
+  console.log(chalk.blue.bold('🚀 Create Vako App\n'));
   console.log(chalk.white('Usage:'));
-  console.log(chalk.gray('  npx create-veko-app my-app'));
-  console.log(chalk.gray('  npx create-veko-app my-app --template api'));
-  console.log(chalk.gray('  npx create-veko-app my-app --wizard'));
-  console.log(chalk.gray('  npx create-veko-app my-app --quick'));
+  console.log(chalk.gray('  npx create-vako-app my-app'));
+  console.log(chalk.gray('  npx create-vako-app my-app --template api'));
+  console.log(chalk.gray('  npx create-vako-app my-app --wizard'));
+  console.log(chalk.gray('  npx create-vako-app my-app --quick'));
   console.log(chalk.white('\nTemplates:'));
   console.log(chalk.gray('  default, api, blog, admin, ecommerce, portfolio\n'));
   process.exit(0);

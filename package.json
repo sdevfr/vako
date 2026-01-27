@@ -24,7 +24,7 @@
     "verify": "node verify-code.js",
     "prepublish": "node scripts/pre-publish.js",
     "prepublishOnly": "echo 'Skipping tests for publication'",
-    "create-app": "node bin/create-veko-app.js",
+    "create-app": "node bin/create-vako-app.js",
     "docs": "jsdoc lib/ -d docs/",
     "benchmark": "node scripts/benchmark.js",
     "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"

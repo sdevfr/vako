@@ -1,1 +1,1 @@
-console.log('Veko.js loaded'); 
+console.log('Vako loaded'); 

@@ -9,7 +9,7 @@ const path = require('path');
 const fs = require('fs').promises;
 
 /**
- * Assistant de configuration interactif pour les projets Veko.js
+ * Assistant de configuration interactif pour les projets Vako
  * Fournit une interface utilisateur complète pour la création de projets
  */
 class SetupWizard {
@@ -111,7 +111,7 @@ class SetupWizard {
    */
   async showWelcome() {
     try {
-      const title = figlet.textSync('VEKO.JS', {
+      const title = figlet.textSync('VAKO', {
         font: 'ANSI Shadow',
         horizontalLayout: 'fitted'
       });
@@ -120,16 +120,16 @@ class SetupWizard {
     } catch (error) {
       // Fallback si figlet échoue
       console.log(chalk.cyan.bold('╔══════════════════════════════════╗'));
-      console.log(chalk.cyan.bold('║            VEKO.JS               ║'));
+      console.log(chalk.cyan.bold('║            VAKO               ║'));
       console.log(chalk.cyan.bold('╚══════════════════════════════════╝'));
     }
 
     console.log(chalk.cyan.bold('\n✨ Interactive Project Setup Wizard ✨\n'));
     
     const welcomeBox = boxen(
-      chalk.white('🎉 Welcome to Veko.js Setup Wizard!\n\n') +
+      chalk.white('🎉 Welcome to Vako Setup Wizard!\n\n') +
       chalk.gray('This wizard will guide you through creating a new\n') +
-      chalk.gray('Veko.js project with all the features you need.\n\n') +
+      chalk.gray('Vako project with all the features you need.\n\n') +
       chalk.blue('✓ Templates & Examples\n') +
       chalk.blue('✓ Authentication System\n') +
       chalk.blue('✓ Database Integration\n') +
@@ -170,14 +170,14 @@ class SetupWizard {
         type: 'input',
         name: 'projectName',
         message: '📁 What\'s your project name?',
-        default: 'my-veko-app',
+        default: 'my-vako-app',
         validate: (input) => this.validateProjectName(input)
       },
       {
         type: 'input', 
         name: 'description',
         message: '📄 Project description:',
-        default: 'A modern web application built with Veko.js',
+        default: 'A modern web application built with Vako',
         validate: (input) => this.validateDescription(input)
       },
       {
@@ -587,7 +587,7 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
     });
 
     console.log(completionBox);
-    console.log(chalk.rainbow('\n✨ Happy coding with Veko.js! ✨\n'));
+    console.log(chalk.rainbow('\n✨ Happy coding with Vako! ✨\n'));
   }
 
   /**
@@ -600,10 +600,10 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
       chalk.gray('Next steps:\n') +
       chalk.white(`  📁 cd ${projectName}\n`) +
       chalk.white('  🚀 npm run dev\n') +
-      chalk.white('  🌐 veko dev\n\n`') +
+      chalk.white('  🌐 vako dev\n\n`') +
       chalk.gray('Your app will be available at: ') +
       chalk.blue.underline('http://localhost:3000\n\n') +
-      chalk.yellow('📚 Documentation: ') + chalk.blue.underline('https://veko.js.org');
+      chalk.yellow('📚 Documentation: ') + chalk.blue.underline('https://vako.js.org');
   }
 
   // === Méthodes de validation sécurisées ===
