@@ -1046,7 +1046,7 @@ document.head.appendChild(style);
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.13'
+        vako: '^1.3.19'
       },
       devDependencies: {
         '@types/node': '^20.10.5',
@@ -1177,7 +1177,7 @@ coverage/
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.13',
+        vako: '^1.3.19',
         next: '^14.0.0',
         react: '^18.2.0',
         'react-dom': '^18.2.0'
