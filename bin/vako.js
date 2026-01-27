@@ -21,7 +21,7 @@ const program = new Command();
 program
   .name('vako')
   .description('Vako Framework CLI')
-  .version('1.3.6');
+  .version('1.3.7');
 
 // ============= DEV COMMAND =============
 program
