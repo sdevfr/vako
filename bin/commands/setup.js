@@ -584,12 +584,19 @@ class SetupWizard {
    * Génération du résumé de configuration
    */
   generateSummary() {
-    const { projectName, template, features, database, auth, plugins, styling, theme } = this.config;
+    const { projectName, template, features, database, auth, plugins, styling, theme, codeType } = this.config;
+    
+    const codeTypeLabels = {
+      'ejs': '📄 EJS',
+      'typescript': '📘 TypeScript',
+      'nextjs': '⚛️ Next.js'
+    };
     
     return chalk.white(`
 🏷️  Project: ${chalk.cyan.bold(projectName)}
 📝 Description: ${chalk.gray(this.config.description)}
 👤 Author: ${chalk.green(this.config.author)}
+💻 Code Type: ${chalk.cyan(codeTypeLabels[codeType] || codeType)}
 🎨 Template: ${chalk.yellow(template)}
 🗄️  Database: ${chalk.blue(database)}
 🔐 Auth: ${chalk.magenta(auth.enabled ? '✅ Enabled' : '❌ Disabled')}
