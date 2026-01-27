@@ -276,7 +276,14 @@ For more details, see [Next.js Integration Guide](docs/nextjs-integration.md).
 
 ## 📋 Changelog
 
-### 🎉 Version 1.3.0 (Latest) - January 2025
+### 🎉 Version 1.3.3 (Latest) - January 2025
+
+#### 🔧 Fixes
+- Fixed README display on npm - all references updated from "Veko.js" to "Vako"
+- Updated binary names in package.json for correct npm CLI commands
+- Fixed TypeScript types naming consistency
+
+### 🎉 Version 1.3.0 - January 2025
 
 #### 🆕 TypeScript & Next.js Support
 
@@ -582,6 +589,6 @@ If you find Vako useful, please consider giving it a star on GitHub!
 
 ---
 
-**Vako v1.3.0** - Ultra-modern web framework with TypeScript support and Next.js integration 🚀✨
+**Vako v1.3.3** - Ultra-modern web framework with TypeScript support and Next.js integration 🚀✨
 
 Built with ❤️ by the Vako team
