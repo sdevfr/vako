@@ -154,7 +154,21 @@ class SetupExecutor {
   }
 
   generateFiles() {
-    const { projectName, description, author, license, template, features, database, auth, styling } = this.config;
+    const { projectName, description, author, license, template, features, database, auth, styling, codeType } = this.config;
+    const files = {};
+
+    // Générer les fichiers selon le type de code
+    if (codeType === 'nextjs') {
+      return this.generateNextJsFiles();
+    } else if (codeType === 'typescript') {
+      return this.generateTypeScriptFiles();
+    } else {
+      return this.generateEjsFiles();
+    }
+  }
+
+  generateEjsFiles() {
+    const { projectName, description, author, license } = this.config;
     const files = {};
 
     // package.json
@@ -168,11 +182,11 @@ class SetupExecutor {
         start: 'vako start',
         build: 'vako build'
       },
-      keywords: ['vako', 'framework', 'web'],
+      keywords: ['vako', 'framework', 'web', 'ejs'],
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.6'
+        vako: '^1.3.13'
       }
     }, null, 2);
 
@@ -260,6 +274,357 @@ h1 {
 
     // public/js/main.js
     files['public/js/main.js'] = `console.log('Vako loaded');
+`;
+
+    return files;
+  }
+
+  generateTypeScriptFiles() {
+    const { projectName, description, author, license } = this.config;
+    const files = {};
+
+    // package.json
+    files['package.json'] = JSON.stringify({
+      name: projectName,
+      version: '1.0.0',
+      description: description || 'A modern web application built with Vako and TypeScript',
+      main: 'dist/app.js',
+      scripts: {
+        dev: 'ts-node src/app.ts',
+        build: 'tsc',
+        start: 'node dist/app.js',
+        'type-check': 'tsc --noEmit'
+      },
+      keywords: ['vako', 'framework', 'web', 'typescript'],
+      author: author || '',
+      license: license || 'MIT',
+      dependencies: {
+        vako: '^1.3.13'
+      },
+      devDependencies: {
+        '@types/node': '^20.10.5',
+        '@types/express': '^4.17.21',
+        'ts-node': '^10.9.2',
+        'typescript': '^5.3.3'
+      }
+    }, null, 2);
+
+    // tsconfig.json
+    files['tsconfig.json'] = JSON.stringify({
+      compilerOptions: {
+        target: 'ES2020',
+        module: 'commonjs',
+        lib: ['ES2020'],
+        outDir: './dist',
+        rootDir: './src',
+        strict: true,
+        esModuleInterop: true,
+        skipLibCheck: true,
+        forceConsistentCasingInFileNames: true,
+        resolveJsonModule: true,
+        declaration: true,
+        declarationMap: true,
+        sourceMap: true
+      },
+      include: ['src/**/*'],
+      exclude: ['node_modules', 'dist']
+    }, null, 2);
+
+    // src/app.ts
+    files['src/app.ts'] = `import { App } from 'vako';
+
+const app = new App({
+  port: 3000,
+  isDev: true,
+  viewsDir: 'views',
+  staticDir: 'public',
+  routesDir: 'src/routes'
+});
+
+app.loadRoutes();
+app.listen();
+`;
+
+    // src/routes/index.ts
+    files['src/routes/index.ts'] = `import { Router, Request, Response } from 'express';
+
+const router = Router();
+
+router.get('/', (req: Request, res: Response) => {
+  res.render('index', {
+    title: 'Welcome to ${projectName}'
+  });
+});
+
+export default router;
+`;
+
+    // README.md
+    files['README.md'] = `# ${projectName}
+
+${description || 'A modern web application built with Vako and TypeScript'}
+
+## Getting Started
+
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+## Building for Production
+
+\`\`\`bash
+npm run build
+npm start
+\`\`\`
+
+## Documentation
+
+Visit [https://vako.js.org](https://vako.js.org) for more information.
+`;
+
+    // .gitignore
+    files['.gitignore'] = `node_modules/
+.env
+*.log
+.DS_Store
+dist/
+coverage/
+*.tsbuildinfo
+`;
+
+    // views/index.ejs
+    files['views/index.ejs'] = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= title %></h1>
+  <p>Welcome to your Vako TypeScript application!</p>
+</body>
+</html>
+`;
+
+    return files;
+  }
+
+  generateNextJsFiles() {
+    const { projectName, description, author, license } = this.config;
+    const files = {};
+
+    // package.json
+    files['package.json'] = JSON.stringify({
+      name: projectName,
+      version: '1.0.0',
+      description: description || 'A modern web application built with Vako and Next.js',
+      scripts: {
+        dev: 'next dev',
+        build: 'next build',
+        start: 'next start',
+        lint: 'next lint'
+      },
+      keywords: ['vako', 'framework', 'web', 'nextjs', 'react'],
+      author: author || '',
+      license: license || 'MIT',
+      dependencies: {
+        vako: '^1.3.13',
+        next: '^14.0.0',
+        react: '^18.2.0',
+        'react-dom': '^18.2.0'
+      },
+      devDependencies: {
+        '@types/node': '^20.10.5',
+        '@types/react': '^18.2.0',
+        '@types/react-dom': '^18.2.0',
+        typescript: '^5.3.3',
+        eslint: '^8.56.0',
+        'eslint-config-next': '^14.0.0'
+      }
+    }, null, 2);
+
+    // next.config.js
+    files['next.config.js'] = `/** @type {import('next').NextConfig} */
+const { NextJsAdapter } = require('vako');
+const { App } = require('vako');
+
+const nextConfig = {
+  reactStrictMode: true,
+  // Configuration Vako
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Configuration pour le client
+    }
+    return config;
+  }
+};
+
+module.exports = nextConfig;
+`;
+
+    // tsconfig.json (pour Next.js)
+    files['tsconfig.json'] = JSON.stringify({
+      compilerOptions: {
+        target: 'ES2020',
+        lib: ['dom', 'dom.iterable', 'esnext'],
+        allowJs: true,
+        skipLibCheck: true,
+        strict: true,
+        forceConsistentCasingInFileNames: true,
+        noEmit: true,
+        esModuleInterop: true,
+        module: 'esnext',
+        moduleResolution: 'bundler',
+        resolveJsonModule: true,
+        isolatedModules: true,
+        jsx: 'preserve',
+        incremental: true,
+        plugins: [
+          {
+            name: 'next'
+          }
+        ],
+        paths: {
+          '@/*': ['./src/*']
+        }
+      },
+      include: ['next-env.d.ts', '**/*.ts', '**/*.tsx', '.next/types/**/*.ts'],
+      exclude: ['node_modules']
+    }, null, 2);
+
+    // server.js (serveur personnalisé avec Vako)
+    files['server.js'] = `const { createServer } = require('http');
+const { parse } = require('url');
+const next = require('next');
+const { App } = require('vako');
+const { NextJsAdapter } = require('vako');
+
+const dev = process.env.NODE_ENV !== 'production';
+const hostname = 'localhost';
+const port = parseInt(process.env.PORT || '3000', 10);
+
+const app = next({ dev, hostname, port });
+const handle = app.getRequestHandler();
+
+app.prepare().then(() => {
+  // Créer l'instance Vako
+  const vakoApp = new App({
+    port: port + 1, // Port différent pour Vako
+    isDev: dev
+  });
+
+  // Intégrer Vako avec Next.js
+  const adapter = new NextJsAdapter({
+    nextApp: app,
+    enableVakoRoutes: true,
+    enableVakoPlugins: true,
+    routePrefix: '/api/vako'
+  });
+
+  adapter.integrateRoutes(vakoApp);
+  adapter.usePlugins(vakoApp);
+
+  // Créer le serveur HTTP
+  createServer(async (req, res) => {
+    try {
+      const parsedUrl = parse(req.url, true);
+      await handle(req, res, parsedUrl);
+    } catch (err) {
+      console.error('Error occurred handling', req.url, err);
+      res.statusCode = 500;
+      res.end('internal server error');
+    }
+  }).listen(port, (err) => {
+    if (err) throw err;
+    console.log(\`> Ready on http://\${hostname}:\${port}\`);
+  });
+});
+`;
+
+    // src/app/layout.tsx
+    files['src/app/layout.tsx'] = `import type { Metadata } from 'next';
+import './globals.css';
+
+export const metadata: Metadata = {
+  title: '${projectName}',
+  description: '${description || 'A modern web application built with Vako and Next.js'}'
+};
+
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+`;
+
+    // src/app/page.tsx
+    files['src/app/page.tsx'] = `export default function Home() {
+  return (
+    <main>
+      <h1>Welcome to ${projectName}</h1>
+      <p>Welcome to your Vako Next.js application!</p>
+    </main>
+  );
+}
+`;
+
+    // src/app/globals.css
+    files['src/app/globals.css'] = `body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #333;
+}
+`;
+
+    // README.md
+    files['README.md'] = `# ${projectName}
+
+${description || 'A modern web application built with Vako and Next.js'}
+
+## Getting Started
+
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Building for Production
+
+\`\`\`bash
+npm run build
+npm start
+\`\`\`
+
+## Documentation
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Vako Documentation](https://vako.js.org)
+`;
+
+    // .gitignore
+    files['.gitignore'] = `node_modules/
+.env
+*.log
+.DS_Store
+.next/
+out/
+dist/
+coverage/
 `;
 
     return files;

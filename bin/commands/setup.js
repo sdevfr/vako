@@ -17,6 +17,7 @@ class SetupWizard {
     this.config = {
       projectName: '',
       template: 'default',
+      codeType: 'ejs', // 'ejs', 'typescript', 'nextjs'
       features: [],
       database: 'sqlite',
       auth: { enabled: false },
@@ -207,12 +208,63 @@ class SetupWizard {
   }
 
   /**
+   * Sélection du type de code (EJS, TypeScript, Next.js)
+   */
+  async selectCodeType() {
+    console.log(chalk.blue.bold('\n💻 Choose Your Code Type\n'));
+
+    const codeTypeChoices = [
+      {
+        name: '📄 EJS - Traditional server-side rendering with EJS templates',
+        value: 'ejs',
+        description: 'Classic Vako.js with EJS views, perfect for traditional web apps'
+      },
+      {
+        name: '📘 TypeScript - Type-safe JavaScript with TypeScript',
+        value: 'typescript',
+        description: 'Modern TypeScript support with type definitions and IntelliSense'
+      },
+      {
+        name: '⚛️ Next.js - React framework with SSR and SSG',
+        value: 'nextjs',
+        description: 'Next.js integration with React, Server-Side Rendering, and Static Generation'
+      }
+    ];
+
+    const { codeType } = await inquirer.prompt([{
+      type: 'list',
+      name: 'codeType',
+      message: '🎯 Select your preferred code type:',
+      choices: codeTypeChoices.map(choice => ({
+        name: choice.name,
+        value: choice.value
+      })),
+      pageSize: 10
+    }]);
+
+    this.config.codeType = codeType;
+    
+    const selectedChoice = codeTypeChoices.find(c => c.value === codeType);
+    console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+  }
+
+  /**
    * Sélection du template de projet
    */
   async selectTemplate() {
     console.log(chalk.blue.bold('\n🎨 Choose Your Template\n'));
 
-    const templateChoices = Array.from(this.templates.entries()).map(([value, template]) => ({
+    // Filtrer les templates selon le type de code
+    let availableTemplates = Array.from(this.templates.entries());
+    
+    // Si Next.js est sélectionné, limiter les options
+    if (this.config.codeType === 'nextjs') {
+      availableTemplates = availableTemplates.filter(([key]) => 
+        ['default', 'api', 'blog', 'portfolio'].includes(key)
+      );
+    }
+
+    const templateChoices = availableTemplates.map(([value, template]) => ({
       name: template.name,
       value
     }));
