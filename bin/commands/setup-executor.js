@@ -398,6 +398,70 @@ router.get('/api/status', (req, res) => {
 module.exports = router;
 `;
 
+    // routes/auth.js (créé seulement si auth est activé, mais on le crée toujours pour éviter les erreurs)
+    if (this.config.auth && this.config.auth.enabled) {
+      files['routes/auth.js'] = `const { Router } = require('express');
+const router = Router();
+
+// Page de connexion
+router.get('/login', (req, res) => {
+  res.render('auth/login', { 
+    title: 'Login - ${projectName}',
+    error: req.query.error || null
+  });
+});
+
+// Traitement de la connexion
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  
+  // TODO: Implémenter la logique d'authentification
+  // Exemple basique (à remplacer par une vraie authentification)
+  if (username && password) {
+    // Ici vous devriez vérifier les credentials dans la base de données
+    req.session.userId = username; // Exemple simple
+    return res.redirect('/');
+  }
+  
+  res.redirect('/auth/login?error=invalid_credentials');
+});
+
+// Page d'inscription
+router.get('/register', (req, res) => {
+  res.render('auth/register', { 
+    title: 'Register - ${projectName}',
+    error: req.query.error || null
+  });
+});
+
+// Traitement de l'inscription
+router.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
+  
+  // TODO: Implémenter la logique d'inscription
+  // Exemple basique (à remplacer par une vraie logique)
+  if (username && email && password) {
+    // Ici vous devriez créer l'utilisateur dans la base de données
+    return res.redirect('/auth/login?success=registered');
+  }
+  
+  res.redirect('/auth/register?error=missing_fields');
+});
+
+// Déconnexion
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }
+    res.redirect('/');
+  });
+});
+
+module.exports = router;
+`;
+    }
+
     // views/index.ejs
     const langAttr = language === 'multi' ? 'fr' : language;
     files['views/index.ejs'] = `<!DOCTYPE html>
@@ -1319,22 +1383,75 @@ coverage/
 
   async setupAuthentication() {
     if (this.config.auth.enabled) {
-      // Create auth routes and middleware
+      // S'assurer que le dossier routes existe
+      const routesDir = path.join(this.projectPath, 'routes');
+      if (!fs.existsSync(routesDir)) {
+        fs.mkdirSync(routesDir, { recursive: true });
+      }
+
+      // S'assurer que le dossier views/auth existe pour les templates
+      const authViewsDir = path.join(this.projectPath, 'views', 'auth');
+      if (!fs.existsSync(authViewsDir)) {
+        fs.mkdirSync(authViewsDir, { recursive: true });
+      }
+
+      // Create auth routes
       const authRoute = `const { Router } = require('express');
 const router = Router();
 
+// Page de connexion
 router.get('/login', (req, res) => {
-  res.render('auth/login', { title: 'Login' });
+  res.render('auth/login', { 
+    title: 'Login - ${this.config.projectName}',
+    error: req.query.error || null
+  });
 });
 
+// Traitement de la connexion
 router.post('/login', async (req, res) => {
-  // Implement login logic here
-  res.redirect('/');
+  const { username, password } = req.body;
+  
+  // TODO: Implémenter la logique d'authentification
+  // Exemple basique (à remplacer par une vraie authentification)
+  if (username && password) {
+    // Ici vous devriez vérifier les credentials dans la base de données
+    req.session.userId = username; // Exemple simple
+    return res.redirect('/');
+  }
+  
+  res.redirect('/login?error=invalid_credentials');
 });
 
+// Page d'inscription
+router.get('/register', (req, res) => {
+  res.render('auth/register', { 
+    title: 'Register - ${this.config.projectName}',
+    error: req.query.error || null
+  });
+});
+
+// Traitement de l'inscription
+router.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
+  
+  // TODO: Implémenter la logique d'inscription
+  // Exemple basique (à remplacer par une vraie logique)
+  if (username && email && password) {
+    // Ici vous devriez créer l'utilisateur dans la base de données
+    return res.redirect('/login?success=registered');
+  }
+  
+  res.redirect('/register?error=missing_fields');
+});
+
+// Déconnexion
 router.get('/logout', (req, res) => {
-  // Implement logout logic here
-  res.redirect('/');
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+    }
+    res.redirect('/');
+  });
 });
 
 module.exports = router;
@@ -1342,6 +1459,208 @@ module.exports = router;
       
       const authPath = path.join(this.projectPath, 'routes/auth.js');
       fs.writeFileSync(authPath, authRoute, 'utf8');
+
+      // Créer les vues d'authentification
+      const loginView = `<!DOCTYPE html>
+<html lang="${this.config.language === 'multi' ? 'fr' : this.config.language || 'fr'}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .auth-container {
+      max-width: 400px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+    .auth-container h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+      font-weight: 500;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    .error-message {
+      background: var(--danger-color);
+      color: var(--white);
+      padding: 0.75rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="container">
+        <h1 class="logo">${this.config.projectName}</h1>
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/login" class="active">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-container">
+      <h1>Login</h1>
+      <% if (error) { %>
+        <div class="error-message">Invalid credentials. Please try again.</div>
+      <% } %>
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+      </form>
+      <p style="text-align: center; margin-top: 1rem;">
+        Don't have an account? <a href="/register">Register here</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; ${new Date().getFullYear()} ${this.config.projectName}. Built with <a href="https://vako.js.org" target="_blank">Vako</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
+`;
+
+      const registerView = `<!DOCTYPE html>
+<html lang="${this.config.language === 'multi' ? 'fr' : this.config.language || 'fr'}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .auth-container {
+      max-width: 400px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+    .auth-container h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+      font-weight: 500;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    .error-message {
+      background: var(--danger-color);
+      color: var(--white);
+      padding: 0.75rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="container">
+        <h1 class="logo">${this.config.projectName}</h1>
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register" class="active">Register</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-container">
+      <h1>Register</h1>
+      <% if (error) { %>
+        <div class="error-message">Please fill all fields.</div>
+      <% } %>
+      <form method="POST" action="/register">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+      </form>
+      <p style="text-align: center; margin-top: 1rem;">
+        Already have an account? <a href="/login">Login here</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; ${new Date().getFullYear()} ${this.config.projectName}. Built with <a href="https://vako.js.org" target="_blank">Vako</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
+`;
+
+      fs.writeFileSync(path.join(authViewsDir, 'login.ejs'), loginView, 'utf8');
+      fs.writeFileSync(path.join(authViewsDir, 'register.ejs'), registerView, 'utf8');
     }
   }
 
