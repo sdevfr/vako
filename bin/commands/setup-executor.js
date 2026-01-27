@@ -106,36 +106,104 @@ class SetupExecutor {
   }
 
   getDirectoriesForTemplate() {
-    const baseDirectories = [
-      'views',
-      'views/layouts',
-      'views/partials',
-      'views/components',
-      'routes',
-      'routes/api',
-      'public',
-      'public/css',
-      'public/js',
-      'public/images',
-      'config',
-      'middleware',
-      'plugins',
-      'data',
-      'utils'
-    ];
+    const { codeType } = this.config;
 
-    const templateDirectories = {
-      blog: ['content', 'content/posts', 'admin', 'uploads'],
-      admin: ['admin', 'admin/views', 'dashboard'],
-      ecommerce: ['shop', 'products', 'orders', 'cart'],
-      portfolio: ['portfolio', 'projects', 'gallery'],
-      pwa: ['pwa', 'sw', 'manifest', 'offline']
-    };
+    // Structure de base pour EJS
+    if (codeType === 'ejs' || !codeType) {
+      const baseDirectories = [
+        'views',
+        'views/layouts',
+        'views/partials',
+        'views/components',
+        'routes',
+        'routes/api',
+        'public',
+        'public/css',
+        'public/js',
+        'public/images',
+        'config',
+        'middleware',
+        'plugins',
+        'data',
+        'utils'
+      ];
 
-    return [
-      ...baseDirectories,
-      ...(templateDirectories[this.config.template] || [])
-    ];
+      const templateDirectories = {
+        blog: ['content', 'content/posts', 'admin', 'uploads'],
+        admin: ['admin', 'admin/views', 'dashboard'],
+        ecommerce: ['shop', 'products', 'orders', 'cart'],
+        portfolio: ['portfolio', 'projects', 'gallery'],
+        pwa: ['pwa', 'sw', 'manifest', 'offline']
+      };
+
+      return [
+        ...baseDirectories,
+        ...(templateDirectories[this.config.template] || [])
+      ];
+    }
+
+    // Structure pour TypeScript
+    if (codeType === 'typescript') {
+      const baseDirectories = [
+        'src',
+        'src/routes',
+        'src/routes/api',
+        'src/middleware',
+        'src/utils',
+        'src/types',
+        'src/config',
+        'views',
+        'views/layouts',
+        'public',
+        'public/css',
+        'public/js',
+        'public/images',
+        'config',
+        'plugins',
+        'data'
+      ];
+
+      const templateDirectories = {
+        blog: ['src/content', 'src/admin', 'uploads'],
+        admin: ['src/admin', 'src/dashboard'],
+        ecommerce: ['src/shop', 'src/products', 'src/orders'],
+        portfolio: ['src/portfolio', 'src/projects', 'src/gallery']
+      };
+
+      return [
+        ...baseDirectories,
+        ...(templateDirectories[this.config.template] || [])
+      ];
+    }
+
+    // Structure pour Next.js
+    if (codeType === 'nextjs') {
+      const baseDirectories = [
+        'src',
+        'src/app',
+        'src/app/api',
+        'src/components',
+        'src/lib',
+        'src/types',
+        'public',
+        'public/images',
+        'config',
+        'plugins'
+      ];
+
+      const templateDirectories = {
+        blog: ['src/app/blog', 'src/app/admin', 'src/content'],
+        admin: ['src/app/admin', 'src/app/dashboard'],
+        portfolio: ['src/app/portfolio', 'src/app/projects']
+      };
+
+      return [
+        ...baseDirectories,
+        ...(templateDirectories[this.config.template] || [])
+      ];
+    }
+
+    return [];
   }
 
   async generateTemplateFiles() {
