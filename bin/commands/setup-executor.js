@@ -1223,7 +1223,7 @@ module.exports = nextConfig;
         noEmit: true,
         esModuleInterop: true,
         module: 'esnext',
-        moduleResolution: 'bundler',
+        moduleResolution: 'node',
         resolveJsonModule: true,
         isolatedModules: true,
         jsx: 'preserve',
