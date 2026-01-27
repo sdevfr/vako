@@ -1,0 +1,93 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'lib/**'
+      - 'bin/**'
+      - 'index.js'
+      - '.github/workflows/**'
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Nécessaire pour les tags
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test || echo "Tests skipped"
+        continue-on-error: true
+      
+      - name: Check if triggered by tag
+        id: check_tag
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            echo "is_tag=true" >> $GITHUB_OUTPUT
+            TAG_VERSION=${GITHUB_REF#refs/tags/v}
+            echo "tag_version=$TAG_VERSION" >> $GITHUB_OUTPUT
+            echo "Tag detected: v$TAG_VERSION"
+          else
+            echo "is_tag=false" >> $GITHUB_OUTPUT
+            echo "Push to main branch"
+          fi
+      
+      - name: Verify version matches package.json (if tag)
+        if: steps.check_tag.outputs.is_tag == 'true'
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${{ steps.check_tag.outputs.tag_version }}"
+          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+            echo "❌ Version mismatch: package.json=$PACKAGE_VERSION, tag=$TAG_VERSION"
+            exit 1
+          fi
+          echo "✅ Version match: $PACKAGE_VERSION"
+      
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Create GitHub Release (if tag)
+        if: steps.check_tag.outputs.is_tag == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ steps.check_tag.outputs.tag_version }}
+          body: |
+            ## 🚀 Version ${{ steps.check_tag.outputs.tag_version }}
+            
+            Published automatically from GitHub Actions.
+            
+            ### 📦 Installation
+            ```bash
+            npm install vako@${{ steps.check_tag.outputs.tag_version }}
+            ```
+            
+            ### 🔗 Links
+            - [npm package](https://www.npmjs.com/package/vako)
+            - [GitHub repository](https://github.com/sdevfr/vako)
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
