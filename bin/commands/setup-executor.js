@@ -258,7 +258,8 @@ class SetupExecutor {
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.13'
+        vako: '^1.3.19',
+        'express-session': '^1.17.3'
       }
     }, null, 2);
 
