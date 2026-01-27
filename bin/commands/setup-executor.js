@@ -167,7 +167,7 @@ class SetupExecutor {
       author: author || '',
       license: license || 'MIT',
       dependencies: {
-        vako: '^1.3.4'
+        vako: '^1.3.6'
       }
     }, null, 2);
 
