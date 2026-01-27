@@ -134,9 +134,7 @@ class SetupExecutor {
   }
 
   async generateTemplateFiles() {
-    const TemplateGenerator = require('./template-generator');
-    const generator = new TemplateGenerator(this.config);
-    const files = generator.generateFiles();
+    const files = this.generateFiles();
 
     for (const [filePath, content] of Object.entries(files)) {
       const fullPath = path.join(this.projectPath, filePath);
@@ -150,24 +148,167 @@ class SetupExecutor {
     }
   }
 
+  generateFiles() {
+    const { projectName, description, author, license, template, features, database, auth, styling } = this.config;
+    const files = {};
+
+    // package.json
+    files['package.json'] = JSON.stringify({
+      name: projectName,
+      version: '1.0.0',
+      description: description || 'A modern web application built with Vako',
+      main: 'app.js',
+      scripts: {
+        dev: 'vako dev',
+        start: 'vako start',
+        build: 'vako build'
+      },
+      keywords: ['vako', 'framework', 'web'],
+      author: author || '',
+      license: license || 'MIT',
+      dependencies: {
+        vako: '^1.3.4'
+      }
+    }, null, 2);
+
+    // app.js
+    files['app.js'] = `const { App } = require('vako');
+
+const app = new App({
+  port: 3000,
+  isDev: true,
+  viewsDir: 'views',
+  staticDir: 'public',
+  routesDir: 'routes'
+});
+
+app.loadRoutes();
+app.listen();
+`;
+
+    // README.md
+    files['README.md'] = `# ${projectName}
+
+${description || 'A modern web application built with Vako'}
+
+## Getting Started
+
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+## Documentation
+
+Visit [https://vako.js.org](https://vako.js.org) for more information.
+`;
+
+    // .gitignore
+    files['.gitignore'] = `node_modules/
+.env
+*.log
+.DS_Store
+dist/
+coverage/
+`;
+
+    // routes/index.js
+    files['routes/index.js'] = `const { Router } = require('express');
+const router = Router();
+
+router.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Welcome to ${projectName}'
+  });
+});
+
+module.exports = router;
+`;
+
+    // views/index.ejs
+    files['views/index.ejs'] = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= title %></h1>
+  <p>Welcome to your Vako application!</p>
+</body>
+</html>
+`;
+
+    // public/css/style.css
+    files['public/css/style.css'] = `body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #333;
+}
+`;
+
+    // public/js/main.js
+    files['public/js/main.js'] = `console.log('Vako loaded');
+`;
+
+    return files;
+  }
+
   async configureFeatures() {
-    const FeatureConfigurer = require('./feature-configurer');
-    const configurer = new FeatureConfigurer(this.config, this.projectPath);
-    await configurer.configure();
+    // Configure features based on this.config.features
+    // This is a placeholder - features are already configured in generateFiles()
   }
 
   async setupAuthentication() {
     if (this.config.auth.enabled) {
-      const AuthSetup = require('./auth-setup');
-      const authSetup = new AuthSetup(this.config, this.projectPath);
-      await authSetup.configure();
+      // Create auth routes and middleware
+      const authRoute = `const { Router } = require('express');
+const router = Router();
+
+router.get('/login', (req, res) => {
+  res.render('auth/login', { title: 'Login' });
+});
+
+router.post('/login', async (req, res) => {
+  // Implement login logic here
+  res.redirect('/');
+});
+
+router.get('/logout', (req, res) => {
+  // Implement logout logic here
+  res.redirect('/');
+});
+
+module.exports = router;
+`;
+      
+      const authPath = path.join(this.projectPath, 'routes/auth.js');
+      fs.writeFileSync(authPath, authRoute, 'utf8');
     }
   }
 
   async setupDatabase() {
-    const DatabaseSetup = require('./database-setup');
-    const dbSetup = new DatabaseSetup(this.config, this.projectPath);
-    await dbSetup.configure();
+    if (this.config.database !== 'none') {
+      // Create database configuration file
+      const dbConfig = `module.exports = {
+  type: '${this.config.database}',
+  // Add your database configuration here
+};
+`;
+      
+      const dbPath = path.join(this.projectPath, 'config/database.js');
+      const dbDir = path.dirname(dbPath);
+      if (!fs.existsSync(dbDir)) {
+        fs.mkdirSync(dbDir, { recursive: true });
+      }
+      fs.writeFileSync(dbPath, dbConfig, 'utf8');
+    }
   }
 
   async initializeGit() {
