@@ -316,21 +316,28 @@ class SetupWizard {
       }
     ];
 
-    const { language } = await inquirer.prompt([{
-      type: 'list',
-      name: 'language',
-      message: '🌍 Select the language for your site:',
-      choices: languageChoices.map(choice => ({
-        name: choice.name,
-        value: choice.value
-      })),
-      pageSize: 10
-    }]);
+    try {
+      const { language } = await inquirer.prompt([{
+        type: 'list',
+        name: 'language',
+        message: '🌍 Select the language for your site:',
+        choices: languageChoices.map(choice => ({
+          name: choice.name,
+          value: choice.value
+        })),
+        pageSize: 10
+      }]);
 
-    this.config.language = language;
-    
-    const selectedChoice = languageChoices.find(c => c.value === language);
-    console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+      this.config.language = language || 'fr'; // Par défaut français
+      
+      const selectedChoice = languageChoices.find(c => c.value === language);
+      if (selectedChoice) {
+        console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+      }
+    } catch (error) {
+      console.error(chalk.red('Error selecting language:'), error.message);
+      this.config.language = 'fr'; // Par défaut français en cas d'erreur
+    }
   }
 
   /**
