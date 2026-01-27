@@ -74,8 +74,13 @@ class SetupExecutor {
       if (this.config.install) {
         currentStep++;
         const spinner8 = createSpinner(`[${currentStep}/${totalSteps}] 📥 Installing dependencies...`).start();
-        await this.installDependencies();
-        spinner8.success({ text: `📥 Dependencies installed successfully` });
+        try {
+          await this.installDependencies();
+          spinner8.success({ text: `📥 Dependencies installed successfully` });
+        } catch (error) {
+          // Ne pas faire planter le setup si l'installation échoue
+          spinner8.warning({ text: `📥 Dependencies installation skipped (run 'npm install' manually)` });
+        }
       }
 
     } catch (error) {
