@@ -1,5 +1,5 @@
 /**
- * Veko.js - Ultra-modern Node.js framework
+ * Vako - Ultra-modern Node.js framework
  * TypeScript definitions
  */
 
@@ -7,7 +7,7 @@ import { Express, Request, Response, NextFunction } from 'express';
 
 // ============= CORE TYPES =============
 
-export interface VekoOptions {
+export interface VakoOptions {
   port?: number;
   wsPort?: number;
   viewsDir?: string;
@@ -96,9 +96,9 @@ export class App {
   layoutManager: LayoutManager;
   routeManager: RouteManager;
   pluginManager: PluginManager;
-  options: VekoOptions;
+  options: VakoOptions;
 
-  constructor(options?: VekoOptions);
+  constructor(options?: VakoOptions);
 
   // Route management
   loadRoutes(routesDir?: string): this;
@@ -203,30 +203,30 @@ export type LogType =
 
 // ============= UTILITY FUNCTIONS =============
 
-export function createApp(options?: VekoOptions): App;
-export function startDev(options?: VekoOptions): App;
-export function start(options?: VekoOptions): App;
+export function createApp(options?: VakoOptions): App;
+export function startDev(options?: VakoOptions): App;
+export function start(options?: VakoOptions): App;
 
 // ============= NEXT.JS ADAPTER =============
 
 export interface NextJsAdapterOptions {
   nextApp: any; // Next.js App instance
-  enableVekoRoutes?: boolean;
-  enableVekoPlugins?: boolean;
+  enableVakoRoutes?: boolean;
+  enableVakoPlugins?: boolean;
   routePrefix?: string;
 }
 
 export class NextJsAdapter {
   constructor(options: NextJsAdapterOptions);
   
-  // Integrate Veko routes with Next.js
-  integrateRoutes(vekoApp: App): void;
+  // Integrate Vako routes with Next.js
+  integrateRoutes(vakoApp: App): void;
   
-  // Use Veko plugins in Next.js
-  usePlugins(vekoApp: App): void;
+  // Use Vako plugins in Next.js
+  usePlugins(vakoApp: App): void;
   
-  // Create Next.js API route handler from Veko route
-  createApiHandler(vekoHandler: RouteHandler): (req: Request, res: Response) => Promise<void>;
+  // Create Next.js API route handler from Vako route
+  createApiHandler(vakoHandler: RouteHandler): (req: Request, res: Response) => Promise<void>;
   
   // Middleware for Next.js
   middleware(): (req: Request, res: Response, next: NextFunction) => void;

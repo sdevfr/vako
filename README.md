@@ -180,9 +180,9 @@ npm install -D typescript @types/node @types/express
 ### Usage
 
 ```typescript
-import { App, VekoOptions } from 'vako';
+import { App, VakoOptions } from 'vako';
 
-const options: VekoOptions = {
+const options: VakoOptions = {
   port: 3000,
   isDev: true,
   routesDir: 'routes',
@@ -204,7 +204,7 @@ All types are available in `types/index.d.ts`:
 ```typescript
 import { 
   App, 
-  VekoOptions, 
+  VakoOptions, 
   Plugin, 
   PluginContext,
   NextJsAdapter 
@@ -240,8 +240,8 @@ nextApp.prepare().then(() => {
   
   const adapter = new NextJsAdapter({
     nextApp: server,
-    enableVekoRoutes: true,
-    enableVekoPlugins: true,
+    enableVakoRoutes: true,
+    enableVakoPlugins: true,
     routePrefix: '/api/vako'
   });
   
