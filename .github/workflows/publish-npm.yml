@@ -42,9 +42,6 @@ jobs:
           fi
           echo "✅ Version match: $PACKAGE_VERSION"
       
-      - name: Install dependencies
-        run: npm install --production=false
-      
       - name: Publish to npm
         run: npm publish --access public
         env:
