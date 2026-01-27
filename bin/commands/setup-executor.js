@@ -327,12 +327,24 @@ module.exports = router;
 
   async installDependencies() {
     try {
+      // Afficher un message informatif
+      console.log(chalk.gray('   Installing dependencies... This may take a few minutes.'));
+      
       execSync('npm install', { 
         cwd: this.projectPath, 
-        stdio: 'pipe'
+        stdio: 'pipe',
+        timeout: 300000 // 5 minutes timeout
       });
+      
+      console.log(chalk.green('   ✓ Dependencies installed successfully'));
     } catch (error) {
-      throw new Error('Failed to install dependencies. Run "npm install" manually.');
+      // Ne pas faire planter le setup si l'installation échoue
+      console.log(chalk.yellow('   ⚠ Installation des dépendances échouée'));
+      console.log(chalk.gray('   Vous pouvez installer manuellement avec: npm install'));
+      console.log(chalk.gray('   Le projet a été créé avec succès, vous pouvez continuer.'));
+      
+      // Ne pas throw l'erreur pour ne pas faire planter le setup
+      // L'utilisateur peut installer manuellement après
     }
   }
 
