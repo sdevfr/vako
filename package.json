@@ -1,5 +1,5 @@
 {
-  "name": "veko",
+  "name": "vako",
   "version": "1.3.0",
   "description": "🚀 Ultra-modern Node.js framework with hot reload, plugins, authentication, TypeScript support, and Next.js integration",
   "main": "index.js",
