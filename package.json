@@ -1,6 +1,6 @@
 {
   "name": "vako",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "🚀 Ultra-modern Node.js framework with hot reload, plugins, authentication, TypeScript support, and Next.js integration",
   "main": "index.js",
   "types": "types/index.d.ts",
