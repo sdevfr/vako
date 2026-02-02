@@ -1,0 +1,16 @@
+{
+    "name": "vako-app",
+    "version": "x",
+    "description": "a vako application",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vako dev",
+        "start": "vako start",
+        "build": "vako build"
+    },
+    "dependencies": {
+        "vako": "^1.3.21",
+        "express": "^4.18.2",
+        "ejs": "^3.1.9"
+    }
+}

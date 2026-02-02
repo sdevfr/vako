@@ -1,2 +1,36 @@
-body { font-family: Arial, sans-serif; margin: 40px; } 
-h1 { color: #3498db; } 
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+#app {
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1)
+}
+
+h1 {
+    color: #6C63FF;
+    margin-bottom: 0.5rem;
+}
+
+.card {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+code {
+    background: #eee;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+}
