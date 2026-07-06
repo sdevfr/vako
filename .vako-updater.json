@@ -1,0 +1,20 @@
+{
+  "autoCheck": true,
+  "autoUpdate": false,
+  "checkInterval": 3600000,
+  "backupCount": 5,
+  "allowPrerelease": false,
+  "allowBeta": false,
+  "securityCheck": true,
+  "progressBar": true,
+  "notifications": true,
+  "rollbackOnFailure": true,
+  "updateChannel": "stable",
+  "customRegistry": null,
+  "excludeFiles": [
+    ".git",
+    "node_modules",
+    ".vako-backups"
+  ],
+  "skipDependencies": false
+}

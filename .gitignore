@@ -6,6 +6,7 @@
 *.pem
 *.cert
 secrets.json
+TODO.md
 
 # Node.js
 node_modules/

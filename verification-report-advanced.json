@@ -1,0 +1,1447 @@
+{
+  "metadata": {
+    "timestamp": "2026-07-06T20:16:02.645Z",
+    "version": "2.0.0",
+    "duration": 537,
+    "platform": "linux",
+    "nodeVersion": "v26.4.0"
+  },
+  "stats": {
+    "files": 78,
+    "lines": 0,
+    "functions": 0,
+    "classes": 0,
+    "tests": 0,
+    "coverage": 0,
+    "complexity": 62,
+    "duplicates": 180,
+    "vulnerabilities": 0
+  },
+  "issues": {
+    "errors": [
+      "Binaire principal manquant: bin/veko.js"
+    ],
+    "warnings": [
+      "Architecture optionnelle manquante: public",
+      "Architecture optionnelle manquante: config",
+      "Architecture optionnelle manquante: data",
+      "Architecture optionnelle manquante: plugins",
+      "Architecture optionnelle manquante: tests",
+      "Architecture optionnelle manquante: docs",
+      "Architecture optionnelle manquante: examples",
+      "Architecture optionnelle manquante: assets",
+      "Fichier optionnel manquant: LICENSE",
+      "Aucun exemple trouvé",
+      "Complexité élevée dans bin/commands/setup-executor.js: 82",
+      "Complexité élevée dans bin/commands/setup.js: 53",
+      "Complexité élevée dans bin/vako-update.js: 26",
+      "Complexité élevée dans lib/adapters/nextjs-adapter.js: 32",
+      "Complexité élevée dans lib/app.js: 139",
+      "Complexité élevée dans lib/core/auth-manager.js: 149",
+      "Complexité élevée dans lib/core/auto-updater.js: 126",
+      "Complexité élevée dans lib/dev/dev-server.js: 42",
+      "Complexité élevée dans lib/layout/layout-manager.js: 124",
+      "Complexité élevée dans lib/plugin-manager.js: 189",
+      "Complexité élevée dans lib/routing/route-manager.js: 110",
+      "Complexité élevée dans scripts/pre-publish.js: 24",
+      "Complexité élevée dans verify-code.js: 197",
+      "13 fichiers avec complexité élevée",
+      "Code dupliqué trouvé (3 occurrences): }\n\n      return [\n        ...baseDirectories,\n    ...",
+      "Code dupliqué trouvé (3 occurrences): return [\n        ...baseDirectories,\n        ...(t...",
+      "Code dupliqué trouvé (3 occurrences): return [\n        ...baseDirectories,\n        ...(t...",
+      "Code dupliqué trouvé (2 occurrences): generateEjsFiles() {\n    const { projectName, desc...",
+      "Code dupliqué trouvé (2 occurrences): const dependencies = {\n      vako: vakoVersion,\n  ...",
+      "Code dupliqué trouvé (2 occurrences): vako: vakoVersion,\n    }\n    if (auth && auth.enab...",
+      "Code dupliqué trouvé (3 occurrences): if (auth && auth.enabled) {\n      dependencies['ex...",
+      "Code dupliqué trouvé (3 occurrences): dependencies['express-session'] = '^1.17.3'\n    }\n...",
+      "Code dupliqué trouvé (2 occurrences): <title><%= title %></title>\n  <link rel=\"styleshee...",
+      "Code dupliqué trouvé (3 occurrences): <body>\n  <header>\n    <nav>\n      <div class=\"cont...",
+      "Code dupliqué trouvé (3 occurrences): <header>\n    <nav>\n      <div class=\"container\">\n ...",
+      "Code dupliqué trouvé (3 occurrences): </main>\n\n  <footer>\n    <div class=\"container\">\n  ...",
+      "Code dupliqué trouvé (3 occurrences): <footer>\n    <div class=\"container\">\n      <p>&cop...",
+      "Code dupliqué trouvé (3 occurrences): <footer>\n    <div class=\"container\">\n      <p>&cop...",
+      "Code dupliqué trouvé (2 occurrences): <div class=\"container\">\n      <p>&copy; ${new Date...",
+      "Code dupliqué trouvé (2 occurrences): <p>&copy; ${new Date().getFullYear()} ${projectNam...",
+      "Code dupliqué trouvé (2 occurrences): <html lang=\"${langAttr}\">\n<head>\n  <meta charset=\"...",
+      "Code dupliqué trouvé (4 occurrences): <head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"view...",
+      "Code dupliqué trouvé (2 occurrences): <nav>\n      <div class=\"container\">\n        <h1 cl...",
+      "Code dupliqué trouvé (3 occurrences): <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" con...",
+      "Code dupliqué trouvé (2 occurrences): const { projectName, description, author, license,...",
+      "Code dupliqué trouvé (2 occurrences): const files = {}\n\n    // FIX: Conditionally add ex...",
+      "Code dupliqué trouvé (2 occurrences): files['package.json'] = JSON.stringify(\n      {\n  ...",
+      "Code dupliqué trouvé (2 occurrences): author: author || '',\n        license: license || ...",
+      "Code dupliqué trouvé (2 occurrences): export const metadata: Metadata = {\n  title: '${pr...",
+      "Code dupliqué trouvé (2 occurrences): async configureFeatures() {\n    // Configure featu...",
+      "Code dupliqué trouvé (2 occurrences): <html lang=\"${this.config.language === 'multi' ? '...",
+      "Code dupliqué trouvé (2 occurrences): <meta name=\"viewport\" content=\"width=device-width,...",
+      "Code dupliqué trouvé (2 occurrences): <title><%= title %></title>\n  <link rel=\"styleshee...",
+      "Code dupliqué trouvé (2 occurrences): <link rel=\"stylesheet\" href=\"/css/style.css\">\n  <s...",
+      "Code dupliqué trouvé (2 occurrences): <style>\n    .auth-container { max-width: 400px; ma...",
+      "Code dupliqué trouvé (2 occurrences): .auth-container { max-width: 400px; margin: 4rem a...",
+      "Code dupliqué trouvé (2 occurrences): .auth-container h1 { text-align: center; margin-bo...",
+      "Code dupliqué trouvé (2 occurrences): .form-group { margin-bottom: 1.5rem; }\n    .form-g...",
+      "Code dupliqué trouvé (2 occurrences): .form-group label { display: block; margin-bottom:...",
+      "Code dupliqué trouvé (2 occurrences): .form-group input { width: 100%; padding: 0.75rem;...",
+      "Code dupliqué trouvé (2 occurrences): .form-group input:focus { outline: none; border-co...",
+      "Code dupliqué trouvé (2 occurrences): .error-message { background: var(--danger-color); ...",
+      "Code dupliqué trouvé (2 occurrences): <body>\n  <header>\n    <nav>\n      <div class=\"cont...",
+      "Code dupliqué trouvé (2 occurrences): <header>\n    <nav>\n      <div class=\"container\">\n ...",
+      "Code dupliqué trouvé (2 occurrences): <nav>\n      <div class=\"container\">\n        <h1 cl...",
+      "Code dupliqué trouvé (2 occurrences): <div class=\"form-group\">\n          <label for=\"use...",
+      "Code dupliqué trouvé (2 occurrences): </div>\n        <div class=\"form-group\">\n          ...",
+      "Code dupliqué trouvé (2 occurrences): </main>\n\n  <footer>\n    <div class=\"container\">\n  ...",
+      "Code dupliqué trouvé (2 occurrences): <footer>\n    <div class=\"container\">\n      <p>&cop...",
+      "Code dupliqué trouvé (2 occurrences): <footer>\n    <div class=\"container\">\n      <p>&cop...",
+      "Code dupliqué trouvé (2 occurrences): <div class=\"container\">\n      <p>&copy; ${new Date...",
+      "Code dupliqué trouvé (2 occurrences): <p>&copy; ${new Date().getFullYear()} ${this.confi...",
+      "Code dupliqué trouvé (2 occurrences): name: choice.name,\n            value: choice.value...",
+      "Code dupliqué trouvé (2 occurrences): const templateChoices = availableTemplates.map(([v...",
+      "Code dupliqué trouvé (2 occurrences): const stylingAnswers = await inquirer.prompt(styli...",
+      "Code dupliqué trouvé (2 occurrences): const chalk = require('chalk')\nconst { Command } =...",
+      "Code dupliqué trouvé (2 occurrences): try {\n    if (!AutoUpdaterClass) {\n      throw new...",
+      "Code dupliqué trouvé (2 occurrences): if (process.env.DEBUG) {\n      console.error('\\n🐛...",
+      "Code dupliqué trouvé (2 occurrences): if (error.message && error.message.includes('not a...",
+      "Code dupliqué trouvé (2 occurrences): this.vakoApp?.log(\n      'info',\n      `Route Next...",
+      "Code dupliqué trouvé (2 occurrences): export default async function handler(req, res) {\n...",
+      "Code dupliqué trouvé (2 occurrences): class App {\n  constructor(options = {}) {\n    // V...",
+      "Code dupliqué trouvé (2 occurrences): const success = await this.autoUpdater.performUpda...",
+      "Code dupliqué trouvé (2 occurrences): try {\n      this.log('info', 'Début du rollback', ...",
+      "Code dupliqué trouvé (2 occurrences): isValidPort(port) {\n    const portNumber = parseIn...",
+      "Code dupliqué trouvé (2 occurrences): sanitizeString(str) {\n    if (typeof str !== 'stri...",
+      "Code dupliqué trouvé (2 occurrences): async init(config = {}) {\n    try {\n      this.con...",
+      "Code dupliqué trouvé (2 occurrences): this.app.use('/api/auth', authLimiter)\n    this.ap...",
+      "Code dupliqué trouvé (2 occurrences): username: {\n        required: true,\n        type: ...",
+      "Code dupliqué trouvé (2 occurrences): password: {\n        required: true,\n        type: ...",
+      "Code dupliqué trouvé (3 occurrences): if (!validation.isValid)\n            return res\n  ...",
+      "Code dupliqué trouvé (3 occurrences): return res\n              .status(400)\n            ...",
+      "Code dupliqué trouvé (3 occurrences): .status(400)\n              .json({\n               ...",
+      "Code dupliqué trouvé (3 occurrences): .json({\n                success: false,\n          ...",
+      "Code dupliqué trouvé (3 occurrences): success: false,\n                message: validatio...",
+      "Code dupliqué trouvé (2 occurrences): if (user) {\n            await this.resetLoginAttem...",
+      "Code dupliqué trouvé (2 occurrences): req.session.user = {\n              id: user.id,\n  ...",
+      "Code dupliqué trouvé (2 occurrences): id: user.id,\n              username: user.username...",
+      "Code dupliqué trouvé (2 occurrences): username: user.username,\n              email: user...",
+      "Code dupliqué trouvé (2 occurrences): email: {\n        required: true,\n        type: 'st...",
+      "Code dupliqué trouvé (2 occurrences): required: true,\n        type: 'string',\n        ma...",
+      "Code dupliqué trouvé (2 occurrences): type: 'string',\n        maxLength: 254,\n        pa...",
+      "Code dupliqué trouvé (2 occurrences): maxLength: 254,\n        pattern: /^[^\\s@]+@[^\\s@]+...",
+      "Code dupliqué trouvé (2 occurrences): pattern: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,\n      },\n  ...",
+      "Code dupliqué trouvé (2 occurrences): },\n      password: {\n        required: true,\n     ...",
+      "Code dupliqué trouvé (2 occurrences): password: {\n        required: true,\n        type: ...",
+      "Code dupliqué trouvé (2 occurrences): const cleanUsername = this.sanitizeInput(username)...",
+      "Code dupliqué trouvé (2 occurrences): const cleanUsername = this.sanitizeInput(username)...",
+      "Code dupliqué trouvé (2 occurrences): const cleanEmail = this.sanitizeInput(email)\n     ...",
+      "Code dupliqué trouvé (2 occurrences): const user = await this.createUser(\n            cl...",
+      "Code dupliqué trouvé (2 occurrences): password\n          )\n\n          if (this.config.se...",
+      "Code dupliqué trouvé (2 occurrences): req.session.user = {\n            id: user.id,\n    ...",
+      "Code dupliqué trouvé (2 occurrences): id: user.id,\n            username: user.username,\n...",
+      "Code dupliqué trouvé (2 occurrences): } catch (error) {\n          if (\n            error...",
+      "Code dupliqué trouvé (2 occurrences): async (req, res) => {\n        if (req.session.user...",
+      "Code dupliqué trouvé (2 occurrences): error: req.query.error,\n          csrfToken: req.s...",
+      "Code dupliqué trouvé (2 occurrences): const query =\n      this.config.database.type === ...",
+      "Code dupliqué trouvé (3 occurrences): if (this.config.database.type === 'mysql')\n      a...",
+      "Code dupliqué trouvé (3 occurrences): await this.db.execute(query, [userId])\n    else\n  ...",
+      "Code dupliqué trouvé (3 occurrences): else\n      await new Promise((resolve, reject) =>\n...",
+      "Code dupliqué trouvé (3 occurrences): await new Promise((resolve, reject) =>\n        thi...",
+      "Code dupliqué trouvé (2 occurrences): for (let i = 0; i < filesToBackup.length; i++) {\n ...",
+      "Code dupliqué trouvé (2 occurrences): for (let i = 0; i < backupFiles.length; i++) {\n   ...",
+      "Code dupliqué trouvé (2 occurrences): return true\n    } catch (error) {\n      console.lo...",
+      "Code dupliqué trouvé (2 occurrences): } catch (error) {\n      console.log(this.styles.er...",
+      "Code dupliqué trouvé (2 occurrences): if (stderr) {\n        // npm prints progress to st...",
+      "Code dupliqué trouvé (2 occurrences): const watchPaths = [\n      ...this.options.watchDi...",
+      "Code dupliqué trouvé (2 occurrences): isRouteFile(filePath) {\n    const routesPath = pat...",
+      "Code dupliqué trouvé (2 occurrences): isViewFile(filePath) {\n    const viewsPath = path....",
+      "Code dupliqué trouvé (2 occurrences): reloadSpecificRoute(filePath) {\n    try {\n      de...",
+      "Code dupliqué trouvé (2 occurrences): let logType = 'info'\n        if (status >= 400) lo...",
+      "Code dupliqué trouvé (2 occurrences): const originalSend = res.send\n\n      res.send = fu...",
+      "Code dupliqué trouvé (2 occurrences): const layoutName = this.sanitizeLayoutName(\n      ...",
+      "Code dupliqué trouvé (2 occurrences): if (options && typeof options !== 'object') {\n    ...",
+      "Code dupliqué trouvé (2 occurrences): try {\n      const ejs = require('ejs')\n      // FI...",
+      "Code dupliqué trouvé (2 occurrences): title: (title) => {\n        res.locals.title = thi...",
+      "Code dupliqué trouvé (2 occurrences): await fs.promises.writeFile(layoutPath, layoutCont...",
+      "Code dupliqué trouvé (2 occurrences): await fs.promises.access(layoutPath, fs.constants....",
+      "Code dupliqué trouvé (2 occurrences): this.layoutCache.delete(sanitizedName)\n\n      cons...",
+      "Code dupliqué trouvé (2 occurrences): sanitizeSectionName(name) {\n    if (typeof name !=...",
+      "Code dupliqué trouvé (2 occurrences): sanitizeSectionContent(content) {\n    if (typeof c...",
+      "Code dupliqué trouvé (2 occurrences): sanitizeText(text, maxLength = 100) {\n    if (type...",
+      "Code dupliqué trouvé (2 occurrences): sanitizeViewName(view) {\n    if (typeof view !== '...",
+      "Code dupliqué trouvé (2 occurrences): this.metricsInterval = null // FIX: Store interval...",
+      "Code dupliqué trouvé (2 occurrences): await fs.promises.writeFile(\n            storageFi...",
+      "Code dupliqué trouvé (2 occurrences): storageFile,\n            JSON.stringify(data, null...",
+      "Code dupliqué trouvé (2 occurrences): JSON.stringify(data, null, 2)\n          )\n        ...",
+      "Code dupliqué trouvé (2 occurrences): const normalizedMethod = method.toLowerCase()\n    ...",
+      "Code dupliqué trouvé (2 occurrences): method: method.toUpperCase(),\n          path: rout...",
+      "Code dupliqué trouvé (2 occurrences): if (this.pathValidationCache && this.pathValidatio...",
+      "Code dupliqué trouvé (2 occurrences): if (this.methodsCache && this.methodsCache.size > ...",
+      "Code dupliqué trouvé (2 occurrences): async deleteRoute(method, routePath) {\n    try {\n ...",
+      "Code dupliqué trouvé (2 occurrences): if (!fs.existsSync(indexViewPath)) {\n      if (!fs...",
+      "Code dupliqué trouvé (2 occurrences): if (!route.startsWith('/')) route = '/' + route\n  ...",
+      "Code dupliqué trouvé (2 occurrences): getRouteMethods(routePath) {\n    const cacheKey = ...",
+      "Code dupliqué trouvé (2 occurrences): const http = require('http')\nconst { App } = requi...",
+      "Code dupliqué trouvé (2 occurrences): getDirectoryTree(dirPath, depth = 0) {\n    let fil...",
+      "Code dupliqué trouvé (2 occurrences): return { files, subdirs, depth: maxDepth }\n  }\n\n  ...",
+      "Code dupliqué trouvé (2 occurrences): analyzeDependencyGraph() {\n    console.log('🕸️  A...",
+      "Code dupliqué trouvé (2 occurrences): jsFiles.forEach((file) => {\n      const deps = thi...",
+      "Code dupliqué trouvé (2 occurrences): this.detectCircularDependencies()\n    this.analyze...",
+      "Code dupliqué trouvé (2 occurrences): extractDependencies(filePath) {\n    try {\n      co...",
+      "Code dupliqué trouvé (2 occurrences): module: match[1],\n          isLocal: match[1].star...",
+      "Code dupliqué trouvé (2 occurrences): isLocal: match[1].startsWith('.'),\n          line:...",
+      "Code dupliqué trouvé (2 occurrences): detectCircularDependencies() {\n    const visited =...",
+      "Code dupliqué trouvé (2 occurrences): dfsForCycles(file, visited, recursionStack, cycles...",
+      "Code dupliqué trouvé (2 occurrences): return resolved + '.js' // Fallback\n  }\n\n  // ====...",
+      "Code dupliqué trouvé (2 occurrences): this.codeMetrics.set(file, {\n        ...(this.code...",
+      "Code dupliqué trouvé (2 occurrences): patterns.forEach((pattern, index) => {\n        con...",
+      "Code dupliqué trouvé (2 occurrences): jsFiles.forEach((file) => {\n      const blocks = t...",
+      "Code dupliqué trouvé (2 occurrences): analyzePerformance() {\n    console.log('⚡ Analyse ...",
+      "Code dupliqué trouvé (2 occurrences): while ((match = routePattern.exec(content)) !== nu...",
+      "Code dupliqué trouvé (2 occurrences): if (validationIssues === 0) {\n      this.info.push...",
+      "Code dupliqué trouvé (2 occurrences): if (testFiles.length === 0) {\n      this.warnings....",
+      "Code dupliqué trouvé (2 occurrences): const fullPath = path.join(currentDir, item)\n     ...",
+      "Code dupliqué trouvé (2 occurrences): return Object.keys(styles).reduce((a, b) => (style...",
+      "Code dupliqué trouvé (2 occurrences): console.log(`🎯 SCORE GLOBAL: ${score}% (${grade})...",
+      "Code dupliqué trouvé (2 occurrences): console.log('\\n📋 Rapports générés:')\n    console....",
+      "Code dupliqué trouvé (2 occurrences): <!-- Header avec score global -->\n            <div...",
+      "Code dupliqué trouvé (2 occurrences): <!-- Métriques rapides -->\n            <div class=...",
+      "Code dupliqué trouvé (2 occurrences): </div>\n                            `\n             ...",
+      "Code dupliqué trouvé (2 occurrences): .map(\n                            (success) => `\n ...",
+      "Code dupliqué trouvé (2 occurrences): (success) => `\n                            <div cl...",
+      "Code dupliqué trouvé (2 occurrences): <div class=\"flex items-center space-x-3 p-3 bg-gre...",
+      "Code dupliqué trouvé (2 occurrences): <i class=\"fas fa-check text-green-500\"></i>\n      ...",
+      "Code dupliqué trouvé (2 occurrences): <span class=\"text-green-800 text-sm\">${success}</s...",
+      "Code dupliqué trouvé (2 occurrences): </div>\n                        `\n                 ...",
+      "Code dupliqué trouvé (2 occurrences): verifyPackageIntegrity() {\n    console.log(\"🔍 Vér...",
+      "Code dupliqué trouvé (2 occurrences): checkVulnerabilities() {\n    console.log('🛡️  Vér...",
+      "Code dupliqué trouvé (2 occurrences): verifySyntax() {\n    console.log('✅ Vérification d...",
+      "Code dupliqué trouvé (2 occurrences): verifyBestPractices() {\n    console.log('📋 Vérifi...",
+      "Code dupliqué trouvé (2 occurrences): checkAuthSecurity() {\n    console.log(\"🔐 Vérifica...",
+      "Code dupliqué trouvé (2 occurrences): analyzeCoverage() {\n    console.log('📊 Analyse de...",
+      "Code dupliqué trouvé (2 occurrences): checkTestQuality() {\n    console.log('🎯 Vérificat...",
+      "Code dupliqué trouvé (2 occurrences): checkAPIConsistency() {\n    console.log('🔗 Vérifi...",
+      "Code dupliqué trouvé (2 occurrences): validateConfiguration() {\n    console.log('⚙️  Val...",
+      "Code dupliqué trouvé (2 occurrences): checkDocumentationSync() {\n    console.log('📖 Vér...",
+      "Code dupliqué trouvé (2 occurrences): verifyModuleExports() {\n    console.log('📤 Vérifi...",
+      "Code dupliqué trouvé (2 occurrences): checkConfigConsistency() {\n    console.log('⚙️  Vé...",
+      "Code dupliqué trouvé (2 occurrences): validateAPISignatures() {\n    console.log('✍️  Val...",
+      "Code dupliqué trouvé (2 occurrences): analyzeDepthComplexity() {\n    console.log('🔍 Ana...",
+      "Code dupliqué trouvé (2 occurrences): findUnusedDependencies() {\n    console.log('🗑️  R...",
+      "Code dupliqué trouvé (2 occurrences): if (!fs.existsSync('package.json')) {\n      this.e...",
+      "Code dupliqué trouvé (2 occurrences): const presentHooks = lifecycleHooks.filter((hook) ...",
+      "180 blocs de code dupliqué détectés",
+      "quick-setup.js: console.log en production (impact performance) (6 occurrences)",
+      "setup-executor.js: console.log en production (impact performance) (9 occurrences)",
+      "setup.js: console.log en production (impact performance) (30 occurrences)",
+      "create-vako-app.js: console.log en production (impact performance) (11 occurrences)",
+      "vako-update.js: console.log en production (impact performance) (2 occurrences)",
+      "vako.js: console.log en production (impact performance) (14 occurrences)",
+      "app.js: console.log en production (impact performance) (7 occurrences)",
+      "auth-manager.js: console.log en production (impact performance) (13 occurrences)",
+      "auto-updater.js: Boucle avec .length dans la condition (optimisable) (2 occurrences)",
+      "auto-updater.js: console.log en production (impact performance) (47 occurrences)",
+      "logger.js: console.log en production (impact performance) (1 occurrences)",
+      "module-installer.js: console.log en production (impact performance) (8 occurrences)",
+      "dev-server.js: console.log en production (impact performance) (5 occurrences)",
+      "plugin-manager.js: console.log en production (impact performance) (6 occurrences)",
+      "benchmark.js: console.log en production (impact performance) (9 occurrences)",
+      "pre-publish.js: console.log en production (impact performance) (1 occurrences)",
+      "security-check.js: console.log en production (impact performance) (2 occurrences)",
+      "main.js: console.log en production (impact performance) (1 occurrences)",
+      "verify-code.js: Boucle avec .length dans la condition (optimisable) (1 occurrences)",
+      "verify-code.js: console.log en production (impact performance) (77 occurrences)",
+      "Aucun fichier de test trouvé",
+      "Style de nommage incohérent pour les classes dans vako-update.js: camelCase",
+      "Style de nommage incohérent pour les classes dans vako.js: camelCase",
+      "Style de nommage incohérent pour les variables dans index.js: PascalCase"
+    ],
+    "security": [
+      "⚠️ Route /login sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /login sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /register sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /register sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /_vako/updates/rollback sans validation d'entrée dans app.js",
+      "🚨 pre-publish.js: Utilisation dangereuse d'eval() (1x)",
+      "🚨 verify-code.js: Utilisation dangereuse d'eval() (1x)",
+      "⚠️ Route /login sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /login sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /register sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /register sans validation d'entrée dans setup-executor.js",
+      "⚠️ Route /_vako/updates/rollback sans validation d'entrée dans app.js"
+    ],
+    "performance": [
+      "Phase Structure: 60ms",
+      "Phase Dépendances: 85ms",
+      "setup.js: Concaténation de strings avec + (préférer template literals) (2 occurrences)",
+      "vako.js: Concaténation de strings avec + (préférer template literals) (1 occurrences)",
+      "app.js: Utilisation de setInterval (vérifier les fuites mémoire) (1 occurrences)",
+      "app.js: Concaténation de strings avec + (préférer template literals) (4 occurrences)",
+      "auto-updater.js: Utilisation de setInterval (vérifier les fuites mémoire) (2 occurrences)",
+      "auto-updater.js: Concaténation de strings avec + (préférer template literals) (1 occurrences)",
+      "layout-manager.js: Utilisation de setInterval (vérifier les fuites mémoire) (1 occurrences)",
+      "plugin-manager.js: Utilisation de setInterval (vérifier les fuites mémoire) (1 occurrences)",
+      "plugin-manager.js: RegExp dynamique (coûteux si répété) (1 occurrences)",
+      "route-manager.js: Utilisation de setInterval (vérifier les fuites mémoire) (1 occurrences)",
+      "pre-publish.js: Concaténation de strings avec + (préférer template literals) (1 occurrences)",
+      "verify-code.js: Utilisation de setInterval (vérifier les fuites mémoire) (1 occurrences)",
+      "verify-code.js: Concaténation de strings avec + (préférer template literals) (5 occurrences)",
+      "verify-code.js: RegExp dynamique (coûteux si répété) (1 occurrences)",
+      "Phase Code Quality: 59ms",
+      "Phase Sécurité: 18ms",
+      "Phase Tests: 0ms",
+      "Phase Cohérence: 5ms"
+    ]
+  },
+  "successes": [
+    "✓ Architecture core: lib/core",
+    "📂 Structure lib/core: 4 fichiers, 0 sous-dossiers",
+    "✓ Architecture routing: lib/routing",
+    "📂 Structure lib/routing: 1 fichiers, 0 sous-dossiers",
+    "✓ Architecture development: lib/dev",
+    "📂 Structure lib/dev: 1 fichiers, 0 sous-dossiers",
+    "✓ Architecture layout: lib/layout",
+    "📂 Structure lib/layout: 1 fichiers, 0 sous-dossiers",
+    "✓ Architecture views: error",
+    "📂 Structure error: 1 fichiers, 0 sous-dossiers",
+    "✓ Architecture scripts: scripts, bin",
+    "📂 Structure scripts: 3 fichiers, 0 sous-dossiers",
+    "📂 Structure bin: 6 fichiers, 1 sous-dossiers",
+    "✓ Fichier package.json présent",
+    "✓ Fichier README.md présent",
+    "✓ Fichier .gitignore présent",
+    "✓ Fichier .npmignore présent",
+    "✓ Section installation dans README",
+    "✓ Section usage dans README",
+    "✓ Section api dans README",
+    "✓ Section example dans README",
+    "✓ 57 dépendances de production",
+    "✓ 21 dépendances de développement",
+    "✓ Script start défini",
+    "✓ Script test défini",
+    "✓ Script build défini",
+    "✓ Intégrité du package vérifiée",
+    "✓ Aucune dépendance circulaire détectée",
+    "✓ Profondeur de complexité analysée",
+    "✓ Dépendances inutilisées vérifiées",
+    "✓ Vérification des vulnérabilités terminée",
+    "✓ Syntaxe JavaScript validée",
+    "✓ Bonnes pratiques appliquées",
+    "✓ Aucun secret en dur détecté",
+    "✓ Sécurité d'authentification vérifiée",
+    "✓ Sécurité d'authentification vérifiée",
+    "✓ Couverture de code analysée",
+    "✓ Qualité des tests vérifiée",
+    "✓ Exports de modules vérifiés",
+    "✓ Cohérence de configuration vérifiée",
+    "✓ Signatures API validées",
+    "✓ Cohérence API vérifiée",
+    "✓ Configuration validée",
+    "✓ Documentation synchronisée",
+    "✓ Hooks npm trouvés: prepublishOnly, test, start",
+    "✓ Hook prepublishOnly: tests avant publication"
+  ],
+  "metrics": {
+    "codeMetrics": {
+      "bin/commands/quick-setup.js": {
+        "complexity": {
+          "total": 6,
+          "details": {
+            "if": 4,
+            "logical": 1
+          }
+        }
+      },
+      "bin/commands/setup-executor.js": {
+        "complexity": {
+          "total": 82,
+          "details": {
+            "if": 28,
+            "else-if": 1,
+            "for": 2,
+            "catch": 6,
+            "ternary": 3,
+            "logical": 38,
+            "throw": 3
+          }
+        }
+      },
+      "bin/commands/setup.js": {
+        "complexity": {
+          "total": 53,
+          "details": {
+            "if": 22,
+            "catch": 7,
+            "ternary": 7,
+            "logical": 15,
+            "throw": 1
+          }
+        }
+      },
+      "bin/create-vako-app.js": {
+        "complexity": {
+          "total": 10,
+          "details": {
+            "if": 6,
+            "else-if": 1,
+            "catch": 1,
+            "logical": 1
+          }
+        }
+      },
+      "bin/vako-update.js": {
+        "complexity": {
+          "total": 26,
+          "details": {
+            "if": 11,
+            "else-if": 1,
+            "catch": 7,
+            "ternary": 1,
+            "logical": 4,
+            "throw": 1
+          }
+        }
+      },
+      "bin/vako.js": {
+        "complexity": {
+          "total": 20,
+          "details": {
+            "if": 8,
+            "else-if": 1,
+            "catch": 5,
+            "logical": 5
+          }
+        }
+      },
+      "index.js": {
+        "complexity": {
+          "total": 3,
+          "details": {
+            "logical": 2
+          }
+        }
+      },
+      "lib/adapters/nextjs-adapter.js": {
+        "complexity": {
+          "total": 32,
+          "details": {
+            "if": 15,
+            "for": 1,
+            "catch": 3,
+            "ternary": 2,
+            "logical": 7,
+            "throw": 3
+          }
+        }
+      },
+      "lib/app.js": {
+        "complexity": {
+          "total": 139,
+          "details": {
+            "if": 59,
+            "else-if": 2,
+            "for": 1,
+            "catch": 16,
+            "ternary": 3,
+            "logical": 47,
+            "throw": 10
+          }
+        }
+      },
+      "lib/core/auth-manager.js": {
+        "complexity": {
+          "total": 149,
+          "details": {
+            "if": 82,
+            "else-if": 2,
+            "for": 4,
+            "catch": 9,
+            "ternary": 11,
+            "logical": 35,
+            "throw": 5
+          }
+        }
+      },
+      "lib/core/auto-updater.js": {
+        "complexity": {
+          "total": 126,
+          "details": {
+            "if": 50,
+            "else-if": 2,
+            "for": 7,
+            "switch": 1,
+            "case": 8,
+            "catch": 23,
+            "ternary": 9,
+            "logical": 20,
+            "throw": 5
+          }
+        }
+      },
+      "lib/core/logger.js": {
+        "complexity": {
+          "total": 10,
+          "details": {
+            "if": 5,
+            "logical": 4
+          }
+        }
+      },
+      "lib/core/module-installer.js": {
+        "complexity": {
+          "total": 12,
+          "details": {
+            "if": 4,
+            "for": 2,
+            "catch": 3,
+            "throw": 2
+          }
+        }
+      },
+      "lib/dev/dev-server.js": {
+        "complexity": {
+          "total": 42,
+          "details": {
+            "if": 20,
+            "else-if": 3,
+            "switch": 1,
+            "case": 4,
+            "catch": 3,
+            "logical": 10
+          }
+        }
+      },
+      "lib/layout/layout-manager.js": {
+        "complexity": {
+          "total": 124,
+          "details": {
+            "if": 53,
+            "else-if": 1,
+            "for": 2,
+            "catch": 8,
+            "ternary": 1,
+            "logical": 47,
+            "throw": 11
+          }
+        }
+      },
+      "lib/plugin-manager.js": {
+        "complexity": {
+          "total": 189,
+          "details": {
+            "if": 88,
+            "else-if": 1,
+            "while": 1,
+            "for": 12,
+            "catch": 19,
+            "ternary": 2,
+            "logical": 41,
+            "throw": 24
+          }
+        }
+      },
+      "lib/routing/route-manager.js": {
+        "complexity": {
+          "total": 110,
+          "details": {
+            "if": 55,
+            "else-if": 4,
+            "catch": 7,
+            "ternary": 2,
+            "logical": 30,
+            "throw": 11
+          }
+        }
+      },
+      "scripts/benchmark.js": {
+        "complexity": {
+          "total": 3,
+          "details": {
+            "if": 1,
+            "for": 1
+          }
+        }
+      },
+      "scripts/pre-publish.js": {
+        "complexity": {
+          "total": 24,
+          "details": {
+            "if": 15,
+            "catch": 5,
+            "logical": 3
+          }
+        }
+      },
+      "scripts/security-check.js": {
+        "complexity": {
+          "total": 11,
+          "details": {
+            "if": 3,
+            "catch": 2,
+            "logical": 5
+          }
+        }
+      },
+      "templates/public/js/main.js": {
+        "complexity": {
+          "total": 1,
+          "details": {}
+        }
+      },
+      "verify-code.js": {
+        "complexity": {
+          "total": 197,
+          "details": {
+            "if": 98,
+            "else-if": 11,
+            "while": 5,
+            "for": 5,
+            "switch": 1,
+            "case": 4,
+            "catch": 17,
+            "ternary": 37,
+            "logical": 17,
+            "throw": 1
+          }
+        }
+      }
+    },
+    "duplicateBlocks": 180,
+    "dependencyGraph": {
+      "bin/commands/quick-setup.js": [
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "inquirer",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "./setup-executor",
+          "isLocal": true,
+          "line": 100
+        }
+      ],
+      "bin/commands/setup-executor.js": [
+        {
+          "type": "require",
+          "module": "nanospinner",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "../../package.json",
+          "isLocal": true,
+          "line": 8
+        },
+        {
+          "type": "require",
+          "module": "vako",
+          "isLocal": false,
+          "line": 295
+        },
+        {
+          "type": "require",
+          "module": "express",
+          "isLocal": false,
+          "line": 393
+        },
+        {
+          "type": "require",
+          "module": "http",
+          "isLocal": false,
+          "line": 929
+        },
+        {
+          "type": "require",
+          "module": "url",
+          "isLocal": false,
+          "line": 930
+        },
+        {
+          "type": "require",
+          "module": "next",
+          "isLocal": false,
+          "line": 931
+        },
+        {
+          "type": "require",
+          "module": "vako",
+          "isLocal": false,
+          "line": 932
+        },
+        {
+          "type": "require",
+          "module": "vako",
+          "isLocal": false,
+          "line": 933
+        },
+        {
+          "type": "require",
+          "module": "express",
+          "isLocal": false,
+          "line": 1084
+        },
+        {
+          "type": "import",
+          "module": "vako",
+          "isLocal": false,
+          "line": 753
+        },
+        {
+          "type": "import",
+          "module": "express",
+          "isLocal": false,
+          "line": 769
+        },
+        {
+          "type": "import",
+          "module": "next",
+          "isLocal": false,
+          "line": 978
+        }
+      ],
+      "bin/commands/setup.js": [
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "inquirer",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "boxen",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "figlet",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "gradient-string",
+          "isLocal": false,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 6
+        },
+        {
+          "type": "require",
+          "module": "./setup-executor",
+          "isLocal": true,
+          "line": 851
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 932
+        }
+      ],
+      "bin/create-vako-app.js": [
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "commander",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 6
+        },
+        {
+          "type": "require",
+          "module": "./commands/setup",
+          "isLocal": true,
+          "line": 33
+        },
+        {
+          "type": "require",
+          "module": "./commands/quick-setup",
+          "isLocal": true,
+          "line": 34
+        },
+        {
+          "type": "require",
+          "module": "inquirer",
+          "isLocal": false,
+          "line": 45
+        }
+      ],
+      "bin/vako-update.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 35
+        },
+        {
+          "type": "require",
+          "module": "../lib/core/auto-updater",
+          "isLocal": true,
+          "line": 59
+        },
+        {
+          "type": "require",
+          "module": "../lib/core/auto-updater",
+          "isLocal": true,
+          "line": 68
+        }
+      ],
+      "bin/vako.js": [
+        {
+          "type": "require",
+          "module": "commander",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 6
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 7
+        },
+        {
+          "type": "require",
+          "module": "./commands/setup",
+          "isLocal": true,
+          "line": 9
+        },
+        {
+          "type": "require",
+          "module": "../lib/dev/dev-server",
+          "isLocal": true,
+          "line": 11
+        },
+        {
+          "type": "require",
+          "module": "../package.json",
+          "isLocal": true,
+          "line": 14
+        },
+        {
+          "type": "require",
+          "module": "../index",
+          "isLocal": true,
+          "line": 30
+        },
+        {
+          "type": "require",
+          "module": "./commands/setup-executor",
+          "isLocal": true,
+          "line": 131
+        },
+        {
+          "type": "require",
+          "module": "./commands/quick-setup",
+          "isLocal": true,
+          "line": 155
+        },
+        {
+          "type": "require",
+          "module": "./commands/template-list",
+          "isLocal": true,
+          "line": 165
+        },
+        {
+          "type": "require",
+          "module": "./commands/plugin-manager-cli",
+          "isLocal": true,
+          "line": 176
+        },
+        {
+          "type": "require",
+          "module": "../lib/core/auto-updater",
+          "isLocal": true,
+          "line": 208
+        }
+      ],
+      "index.js": [
+        {
+          "type": "require",
+          "module": "./lib/app",
+          "isLocal": true,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "./lib/adapters/nextjs-adapter",
+          "isLocal": true,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "./lib/core/auth-manager",
+          "isLocal": true,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "./lib/routing/route-manager",
+          "isLocal": true,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "./lib/layout/layout-manager",
+          "isLocal": true,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "./lib/core/logger",
+          "isLocal": true,
+          "line": 6
+        }
+      ],
+      "lib/adapters/nextjs-adapter.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "../../path/to/vako/handler",
+          "isLocal": true,
+          "line": 225
+        }
+      ],
+      "lib/app.js": [
+        {
+          "type": "require",
+          "module": "express",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "helmet",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "express-rate-limit",
+          "isLocal": false,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "validator",
+          "isLocal": false,
+          "line": 6
+        },
+        {
+          "type": "require",
+          "module": "./core/module-installer",
+          "isLocal": true,
+          "line": 8
+        },
+        {
+          "type": "require",
+          "module": "./core/logger",
+          "isLocal": true,
+          "line": 9
+        },
+        {
+          "type": "require",
+          "module": "./layout/layout-manager",
+          "isLocal": true,
+          "line": 10
+        },
+        {
+          "type": "require",
+          "module": "./routing/route-manager",
+          "isLocal": true,
+          "line": 11
+        },
+        {
+          "type": "require",
+          "module": "./dev/dev-server",
+          "isLocal": true,
+          "line": 12
+        },
+        {
+          "type": "require",
+          "module": "./plugin-manager",
+          "isLocal": true,
+          "line": 13
+        },
+        {
+          "type": "require",
+          "module": "./core/auth-manager",
+          "isLocal": true,
+          "line": 14
+        },
+        {
+          "type": "require",
+          "module": "./core/auto-updater",
+          "isLocal": true,
+          "line": 19
+        }
+      ],
+      "lib/core/auth-manager.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "crypto",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "mysql2/promise",
+          "isLocal": false,
+          "line": 247
+        },
+        {
+          "type": "require",
+          "module": "sqlite3",
+          "isLocal": false,
+          "line": 260
+        },
+        {
+          "type": "require",
+          "module": "express-session",
+          "isLocal": false,
+          "line": 311
+        },
+        {
+          "type": "require",
+          "module": "helmet",
+          "isLocal": false,
+          "line": 331
+        },
+        {
+          "type": "require",
+          "module": "express-rate-limit",
+          "isLocal": false,
+          "line": 332
+        },
+        {
+          "type": "require",
+          "module": "bcryptjs",
+          "isLocal": false,
+          "line": 860
+        },
+        {
+          "type": "require",
+          "module": "bcryptjs",
+          "isLocal": false,
+          "line": 900
+        }
+      ],
+      "lib/core/auto-updater.js": [
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "https",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "crypto",
+          "isLocal": false,
+          "line": 5
+        },
+        {
+          "type": "require",
+          "module": "os",
+          "isLocal": false,
+          "line": 6
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 7
+        },
+        {
+          "type": "require",
+          "module": "util",
+          "isLocal": false,
+          "line": 8
+        },
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 9
+        }
+      ],
+      "lib/core/logger.js": [
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "util",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "chalk",
+          "isLocal": false,
+          "line": 4
+        }
+      ],
+      "lib/core/module-installer.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "util",
+          "isLocal": false,
+          "line": 4
+        }
+      ],
+      "lib/dev/dev-server.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "chokidar",
+          "isLocal": false,
+          "line": 7
+        },
+        {
+          "type": "require",
+          "module": "ws",
+          "isLocal": false,
+          "line": 8
+        }
+      ],
+      "lib/layout/layout-manager.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "ejs",
+          "isLocal": false,
+          "line": 239
+        }
+      ],
+      "lib/plugin-manager.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "events",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "ts-node",
+          "isLocal": false,
+          "line": 73
+        },
+        {
+          "type": "require",
+          "module": "typescript",
+          "isLocal": false,
+          "line": 104
+        },
+        {
+          "type": "require",
+          "module": "util",
+          "isLocal": false,
+          "line": 219
+        },
+        {
+          "type": "require",
+          "module": "chokidar",
+          "isLocal": false,
+          "line": 240
+        }
+      ],
+      "lib/routing/route-manager.js": [
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "crypto",
+          "isLocal": false,
+          "line": 3
+        }
+      ],
+      "scripts/benchmark.js": [
+        {
+          "type": "require",
+          "module": "http",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "../index",
+          "isLocal": true,
+          "line": 4
+        }
+      ],
+      "scripts/pre-publish.js": [
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 8
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 9
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 10
+        }
+      ],
+      "scripts/security-check.js": [
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 3
+        }
+      ],
+      "templates/public/js/main.js": [],
+      "verify-code.js": [
+        {
+          "type": "require",
+          "module": "fs",
+          "isLocal": false,
+          "line": 1
+        },
+        {
+          "type": "require",
+          "module": "path",
+          "isLocal": false,
+          "line": 2
+        },
+        {
+          "type": "require",
+          "module": "child_process",
+          "isLocal": false,
+          "line": 3
+        },
+        {
+          "type": "require",
+          "module": "crypto",
+          "isLocal": false,
+          "line": 4
+        },
+        {
+          "type": "require",
+          "module": "os",
+          "isLocal": false,
+          "line": 5
+        }
+      ]
+    }
+  },
+  "score": 30,
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "errors",
+      "message": "Corriger toutes les erreurs critiques",
+      "count": 1
+    },
+    {
+      "priority": "high",
+      "category": "security",
+      "message": "Traiter les vulnérabilités de sécurité",
+      "count": 12
+    }
+  ]
+}
