@@ -1,183 +1,64 @@
-# 🚀 Vako
+# Vako
 
-**Ultra-modern** and **intelligent** web framework for Node.js with Express and EJS, designed for rapid and efficient development with **intelligent hot reload**, **beautiful logging**, **extensible plugin system**, **TypeScript support**, **Next.js integration**, and **revolutionary auto-updater**.
+Vako is a Node.js web framework built on Express and EJS, designed for rapid development with selective hot reloading, an extensible plugin architecture, and integrated TypeScript support.
 
 [![npm version](https://img.shields.io/npm/v/vako.svg)](https://www.npmjs.com/package/vako)
 [![npm downloads](https://img.shields.io/npm/dm/vako.svg)](https://www.npmjs.com/package/vako)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## ✨ Features
-
-### 🎯 Core Features
-- 🔥 **Intelligent Hot Reload** - Selective reloading of modified routes
-- 🎨 **Beautiful Logging** - Colorful logging system with icons and timestamps
-- ⚡ **Integrated WebSocket** - Real-time communication for development
-- 📁 **Auto-loading** - Routes, views, and middleware auto-configured
-- 🛠️ **Development Mode** - Advanced file monitoring
-- 🌐 **Smart Prefetching** - Route caching and prefetching
-- 🔌 **Plugin System** - Extensible architecture with hooks and complete API
-- 🛣️ **Dynamic Route Management** - Create/delete routes on-the-fly
-- 🎨 **Advanced Layout System** - Powerful templating with sections and helpers
-- 📦 **Auto Module Installation** - Automatic dependency management
-
-### 🔷 TypeScript & Next.js (NEW in v1.3.0)
-- 🔷 **Full TypeScript Support** - Complete type definitions included
-- ⚛️ **Next.js Adapter** - Seamless integration with Next.js
-- 📘 **Type Definitions** - Full IntelliSense support
-- 🔗 **Next.js Routes** - Use Vako routes in Next.js applications
-- 🔌 **Plugin Compatibility** - Use Vako plugins in Next.js projects
-
-### 🔒 Security & Quality
-- 🔬 **Advanced Code Verification** - Comprehensive code quality analysis
-- 📊 **HTML Reports** - Beautiful verification reports with interactive dashboard
-- 🔒 **Security Auditing** - Advanced security vulnerability detection
-- 🧮 **Complexity Analysis** - Cyclomatic complexity and performance metrics
-
-### 🔄 Auto-Updater
-- 🔄 **Revolutionary Auto-Updater** - The most advanced auto-updater in Node.js ecosystem
-- 🛡️ **Security-First Updates** - Automatic critical security updates with rollback protection
-- 💾 **Intelligent Backup System** - Smart backups with one-click rollback
-- 🎯 **Multi-Channel Updates** - Support for stable, beta, and alpha channels
-- 🎨 **Interactive CLI** - Beautiful command-line interface with auto-completion
-
 ## 📋 Table of Contents
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [TypeScript Support](#typescript-support)
+- [Next.js Integration](#nextjs-integration)
+- [Architecture](#architecture)
+- [CLI Commands](#cli-commands)
+- [Auto-Updater](#auto-updater)
+- [Contributing](#contributing)
 
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [TypeScript Support](#-typescript-support)
-- [Next.js Integration](#-nextjs-integration)
-- [Features](#-features)
-- [Documentation](#-documentation)
-- [Changelog](#-changelog)
-- [Contributing](#-contributing)
+## Installation
 
-## 🚀 Installation
-
-### Global Installation (CLI)
-
+Install globally for CLI access:
 ```bash
 npm install -g vako
 ```
 
-### Project Installation
-
+Install locally in your project:
 ```bash
 npm install vako
 ```
 
-### With TypeScript
-
+For TypeScript projects, install the required dev dependencies:
 ```bash
-npm install vako
 npm install -D typescript @types/node @types/express
 ```
 
-## 📦 Quick Start
+## Quick Start
 
-### 1. Create a New Project
-
+Generate a new project using the CLI wizard:
 ```bash
-# Create a new project
 vako setup my-app
-
-# With options
-vako setup --name my-blog --template blog --git
-
 # Available templates: default, api, blog, admin
 ```
 
-### 2. Basic Application
-
+Or initialize Vako programmatically:
 ```javascript
 const { App } = require('vako');
 
 const app = new App({
   port: 3000,
   viewsDir: 'views',
-  staticDir: 'public',
   routesDir: 'routes',
-  layouts: {
-    enabled: true,
-    defaultLayout: 'main'
-  },
-  plugins: {
-    enabled: true,
-    autoLoad: true,
-    pluginsDir: 'plugins'
-  }
-});
-
-app.loadRoutes() // Automatically load all routes
-   .listen();
-```
-
-### 3. Development Mode
-
-```javascript
-const { startDev } = require('vako');
-
-// Simple dev startup with hot reload
-startDev({ port: 3000 });
-```
-
-Or with the App class:
-
-```javascript
-const { App } = require('vako');
-
-const app = new App({
-  port: 3000,
-  isDev: true, // Enable development mode
-  wsPort: 3008, // WebSocket port for hot reload
-  watchDirs: ['views', 'routes', 'public'], // Watched directories
-  layouts: {
-    enabled: true,
-    defaultLayout: 'main'
-  },
-  plugins: {
-    enabled: true,
-    autoLoad: true,
-    pluginsDir: 'plugins'
-  }
+  isDev: true, // Enables hot reload
+  plugins: { autoLoad: true }
 });
 
 app.loadRoutes().listen();
 ```
 
-### 4. CLI Commands
+## TypeScript Support
 
-```bash
-# Start development server
-vako dev
-
-# Start with custom port
-vako dev --port 8080
-
-# Create new project
-vako setup my-project
-
-# Create API project
-vako setup --template api --name my-api
-
-# Create blog project
-vako setup --template blog --name my-blog
-
-# Create admin project
-vako setup --template admin --name admin-panel
-```
-
-## 🔷 TypeScript Support
-
-Vako includes complete TypeScript support with full type definitions.
-
-### Installation
-
-```bash
-npm install vako
-npm install -D typescript @types/node @types/express
-```
-
-### Usage
+Vako ships with complete type definitions. Configure your application using strongly typed options:
 
 ```typescript
 import { App, VakoOptions } from 'vako';
@@ -197,34 +78,11 @@ app.loadRoutes();
 app.listen();
 ```
 
-### Type Definitions
+## Next.js Integration
 
-All types are available in `types/index.d.ts`:
-
-```typescript
-import { 
-  App, 
-  VakoOptions, 
-  Plugin, 
-  PluginContext,
-  NextJsAdapter 
-} from 'vako';
-```
-
-## ⚛️ Next.js Integration
-
-Vako can be seamlessly integrated with Next.js using the built-in adapter.
-
-### Installation
-
-```bash
-npm install vako next react react-dom
-```
-
-### Basic Integration
+Use the `NextJsAdapter` to mount Vako routes and plugins inside a custom Next.js server.
 
 ```javascript
-// server.js (Custom Next.js server)
 const express = require('express');
 const next = require('next');
 const { App, NextJsAdapter } = require('vako');
@@ -241,354 +99,136 @@ nextApp.prepare().then(() => {
   const adapter = new NextJsAdapter({
     nextApp: server,
     enableVakoRoutes: true,
-    enableVakoPlugins: true,
     routePrefix: '/api/vako'
   });
   
   adapter.integrateRoutes(vakoApp);
-  adapter.usePlugins(vakoApp);
-  
   server.use(adapter.middleware());
-  server.get('*', (req, res) => handle(req, res));
   
-  server.listen(3000, () => {
-    console.log('🚀 Server ready on http://localhost:3000');
-  });
+  server.get('*', (req, res) => handle(req, res));
+  server.listen(3000);
 });
 ```
 
-### Using Vako Plugins in Next.js
+## Architecture
 
+### Hot Reload
+The development server monitors file changes and selectively reloads components:
+- **Routes:** Unregisters and reloads the specific Express router.
+- **Views/Layouts:** Clears the EJS cache and triggers a client-side refresh.
+- **Plugins:** Unloads and re-initializes the specific plugin instance.
+
+### Route System
+Vako auto-loads files from the `routes/` directory. File names map directly to URLs.
+- `routes/index.js` maps to `/`
+- `routes/users/[id].js` maps to `/users/:id`
+
+Define HTTP methods by exporting them directly:
 ```javascript
-// pages/api/data.js
-import vakoApp from '../../lib/vako-setup';
-
-export default async function handler(req, res) {
-  // Use Vako plugins
-  const dbPlugin = vakoApp.pluginManager?.getPlugin('database');
-  const data = await dbPlugin?.getData();
-  
-  res.status(200).json({ data });
-}
+// routes/users.js
+module.exports = {
+  get: (req, res) => res.render('users', { users: [] }),
+  post: (req, res) => res.status(201).json({ user: req.body })
+};
 ```
 
-For more details, see [Next.js Integration Guide](docs/nextjs-integration.md).
-
-## 📋 Changelog
-
-### 🎉 Version 1.3.3 (Latest) - January 2025
-
-#### 🔧 Fixes
-- Fixed README display on npm - all references updated from "Veko.js" to "Vako"
-- Updated binary names in package.json for correct npm CLI commands
-- Fixed TypeScript types naming consistency
-
-### 🎉 Version 1.3.0 - January 2025
-
-#### 🆕 TypeScript & Next.js Support
-
-- **🔷 Full TypeScript Support**
-  - Complete type definitions in `types/index.d.ts`
-  - TypeScript configuration (`tsconfig.json`)
-  - Full IntelliSense support
-  - Type-safe plugin development
-
-- **⚛️ Next.js Adapter**
-  - Seamless integration with Next.js
-  - Use Vako routes in Next.js applications
-  - Use Vako plugins in Next.js projects
-  - Middleware for exposing Vako functionality
-
-- **📚 Documentation**
-  - Next.js integration guide
-  - TypeScript examples
-  - Quick start guides
-
-#### 🔧 Improvements
-
-- Updated package name to `vako` for npm publication
-- Enhanced plugin system with TypeScript support
-- Improved error handling
-- Better documentation structure
-
-### 📜 Version 1.2.0 - December 2024
-
-#### 🆕 Revolutionary Auto-Updater System
-
-- **🔄 Advanced Auto-Updater**
-  - Automatic version checking with intelligent scheduling
-  - Multi-channel support (stable, beta, alpha, custom registries)
-  - Security-first approach with cryptographic validation
-  - Interactive CLI with beautiful colored interface
-  - Real-time notifications and progress indicators
-
-- **🔒 Security-First Architecture**
-  - SHA512 integrity verification for all packages
-  - Automatic security updates with priority handling
-  - Rollback protection against failed updates
-  - Vulnerability scanning before installation
-
-- **💾 Smart Backup & Rollback System**
-  - Automatic backup before every update
-  - Configurable backup retention (1-10 backups)
-  - Instant rollback in case of failure
-  - Emergency rollback functionality
-
-### 📜 Version 1.1.0
-
-- Initial plugin system implementation
-- Basic layout system with EJS integration
-- Hot reload functionality with WebSocket
-- CLI commands (dev, setup, build, start)
-- Basic logging system with colors
-- Auto-loading for routes and middleware
-
-## 🔌 Plugin System
-
-Vako includes a powerful and extensible plugin system.
-
-### Plugin Structure
+### Plugin System
+Plugins inject routes, middleware, and hooks into the Vako instance.
 
 ```javascript
 // plugins/my-plugin.js
 module.exports = {
   name: 'my-plugin',
   version: '1.0.0',
-  description: 'Description of my plugin',
+  defaultConfig: { enabled: true },
   
-  defaultConfig: {
-    enabled: true,
-    option1: 'value'
-  },
-
   async load(app, config, context) {
-    context.log('success', 'Plugin loaded!');
-    
-    // Add a route
-    context.addRoute('get', '/my-plugin', (req, res) => {
-      res.json({ message: 'Hello from plugin!' });
-    });
-    
-    // Add middleware
-    context.addMiddleware((req, res, next) => {
-      req.pluginData = { source: 'my-plugin' };
-      next();
+    context.addRoute('get', '/plugin-data', (req, res) => {
+      res.json({ source: 'my-plugin' });
     });
   }
 };
 ```
 
-### TypeScript Plugin
-
-```typescript
-// plugins/my-plugin.ts
-import { Plugin, PluginContext } from 'vako';
-
-const myPlugin: Plugin = {
-  name: 'my-plugin',
-  version: '1.0.0',
-  
-  async load(app, config, context: PluginContext) {
-    context.log('success', 'TypeScript plugin loaded!');
-    // ...
-  }
-};
-
-export default myPlugin;
-```
-
-For more details, see [Plugin Documentation](doc.plugin.md).
-
-## 🎨 Advanced Layout System
-
-Vako includes a powerful layout system with sections and helpers.
+### Layout System
+Configure EJS layouts with sections and asset helpers.
 
 ```javascript
 const app = new App({
   layouts: {
     enabled: true,
-    layoutsDir: 'views/layouts',
     defaultLayout: 'main',
     sections: ['head', 'header', 'content', 'footer', 'scripts']
   }
 });
 ```
 
-### Layout Helpers
-
-```javascript
-// In your views
+Inject assets and content from your views:
+```ejs
 <% layout.title('My Page Title') %>
-<% layout.meta('description', 'Page description') %>
 <% layout.css('/css/custom.css') %>
-<% layout.js('/js/custom.js') %>
 <% layout.section('header', '<div>Custom Header</div>') %>
 ```
 
-## 🔥 Intelligent Hot Reload
-
-Vako's hot reload system selectively reloads only what's necessary:
-
-- **Modified routes** → Route-only reload
-- **Modified views** → Light template reload
-- **Static files** → Full browser reload
-- **Modified plugins** → Specific plugin reload
-- **Modified layouts** → Layout cache clear and reload
-
-## 🛣️ Route System
-
-### Automatic Routes
-
-Vako automatically loads all routes from the `routes/` folder:
-
-- `routes/index.js` → `/`
-- `routes/about.js` → `/about`
-- `routes/users/[id].js` → `/users/:id`
-
-### Route File Format
-
-```javascript
-// routes/users.js
-module.exports = {
-  get: (req, res) => {
-    res.render('users', { users: [] });
-  },
-  post: (req, res) => {
-    const newUser = req.body;
-    res.status(201).json({ user: newUser });
-  }
-};
-```
-
-## 🔄 Auto-Updater
-
-### Quick Start
+## CLI Commands
 
 ```bash
-# Global installation
-npm install -g vako
-
-# Check for updates
-vako update check
-
-# Update to latest version
-vako update update
-
-# Configure auto-updater
-vako update config
-
-# View statistics
-vako update stats
+vako dev                  # Start development server
+vako dev --port 8080      # Start on custom port
+vako setup my-app         # Generate a new project
+vako build                # Build for production
+vako start                # Start production server
 ```
 
-### Programmatic Usage
+## Auto-Updater
 
+Vako includes a built-in auto-updater with SHA-512 integrity verification and automated rollback.
+
+```bash
+vako update check         # Check for updates
+vako update update        # Apply latest update
+vako update rollback      # Revert to previous version
+vako update config        # Configure updater settings
+```
+
+Programmatic configuration:
 ```javascript
-const { App } = require('vako');
-
 const app = new App({
   autoUpdater: {
     enabled: true,
     checkOnStart: true,
     autoUpdate: false,
     updateChannel: 'stable',
-    securityUpdates: true,
     backupCount: 5,
-    checkInterval: 3600000,
     rollbackOnFailure: true
   }
 });
 ```
 
-## 📚 Documentation
-
-- [Plugin System](doc.plugin.md) - Complete plugin documentation
-- [Authentication](doc.auth.md) - Authentication system guide
-- [Next.js Integration](docs/nextjs-integration.md) - Next.js integration guide
-- [Quick Start Guide](QUICK_START_NEXTJS.md) - Quick start with TypeScript and Next.js
-
-## 🛠️ CLI Commands
-
-```bash
-# Development
-vako dev                    # Start development server
-vako dev --port 8080        # Custom port
-vako dev --watch "src,views" # Custom watch directories
-
-# Project Setup
-vako setup my-app           # Create new project
-vako setup --template api   # Create API project
-vako setup --template blog # Create blog project
-
-# Production
-vako build                 # Build for production
-vako start                 # Start production server
-
-# Updates
-vako update check           # Check for updates
-vako update update         # Update to latest
-vako update config         # Configure auto-updater
-vako update stats          # View statistics
-```
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 my-project/
-├── routes/                 # Route files
-│   ├── index.js           # Route: /
+├── routes/               # Auto-loaded route files
+│   ├── index.js
 │   └── api/
-│       └── users.js       # Route: /api/users
-├── views/                 # View templates
-│   ├── layouts/          # Layout templates
+│       └── users.js
+├── views/                # EJS templates
+│   ├── layouts/          # Layout definitions
 │   └── index.ejs
-├── public/               # Static files
-│   ├── css/
-│   └── js/
-├── plugins/             # Custom plugins
-│   └── my-plugin.js
-├── types/               # TypeScript types (optional)
+├── public/               # Static assets
+├── plugins/              # Custom plugins
+├── types/                # TypeScript definitions
 └── package.json
 ```
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Clone the repository: `git clone https://github.com/sdevfr/vako.git`
+2. Install dependencies: `npm install`
+3. Run tests: `npm test`
+4. Submit a Pull Request.
 
-### Local Development
+## License
 
-```bash
-git clone https://github.com/sdevfr/vako.git
-cd vako
-npm install
-npm run dev
-```
-
-### Testing
-
-```bash
-npm test
-npm run test:watch
-npm run lint:check
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🔗 Links
-
-- **npm**: https://www.npmjs.com/package/vako
-- **GitHub**: https://github.com/sdevfr/vako
-- **Documentation**: See `docs/` folder
-- **Issues**: https://github.com/sdevfr/vako/issues
-
-## ⭐ Show Your Support
-
-If you find Vako useful, please consider giving it a star on GitHub!
-
----
-
-**Vako v1.3.3** - Ultra-modern web framework with TypeScript support and Next.js integration 🚀✨
-
-Built with ❤️ by the Vako team
+MIT License - see the [LICENSE](LICENSE) file for details.
