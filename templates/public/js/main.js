@@ -1,1 +1,1 @@
-console.log('Vako loaded'); 
+console.log('Vako loaded')
