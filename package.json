@@ -129,7 +129,7 @@
     "@types/jest": "^29.5.8",
     "@types/node": "^20.10.5",
     "cross-env": "^7.0.3",
-    "eslint": "^8.56.0",
+    "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-html": "^8.1.4",
