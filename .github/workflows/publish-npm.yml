@@ -2,70 +2,57 @@ name: Publish to npm
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: write
+  id-token: write # required for npm provenance
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
+    runs-on: ubuntu-slim
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
-      
+          node-version: "22"
+          registery-url: "https://registry.npmjs.org"
+          cache: npm
       - name: Extract version from tag
-        id: tag_version
+        id: v
         run: |
           VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Tag version: $VERSION"
-      
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Verify version matches package.json
         run: |
-          PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          TAG_VERSION="${{ steps.tag_version.outputs.version }}"
-          echo "Package version: $PACKAGE_VERSION"
-          echo "Tag version: $TAG_VERSION"
-          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
-            echo "❌ Version mismatch: package.json=$PACKAGE_VERSION, tag=$TAG_VERSION"
-            exit 1
-          fi
-          echo "✅ Version match: $PACKAGE_VERSION"
-      
-      - name: Publish to npm
-        run: npm publish --access public
+          PKG=$(node -p "require('./package.json').version")
+          TAG="${{ steps.v.outputs.version }}"
+          [ "$PKG" = "$TAG" ] || { echo "mismatch pkg=$PKG tag=$TAG"; exit 1; }
+      - run: npm ci
+      - run: npm run lint:check
+      - run: npm test
+      - run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+      - name: Github Release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: Release ${{ steps.tag_version.outputs.version }}
+          name: Release ${{ steps.v.outputs.version }}
+          generate_release_notes: true
           body: |
-            ## 🚀 Version ${{ steps.tag_version.outputs.version }}
-            
-            Published automatically from GitHub Actions.
-            
-            ### 📦 Installation
+            ## v${{ steps.v.outputs.version }}
+            Published from Github Actions.
+            ### Install
             ```bash
-            npm install vako@${{ steps.tag_version.outputs.version }}
+            npm install vako@${{ steps.v.outputs.version }}
             ```
-            
-            ### 🔗 Links
-            - [npm package](https://www.npmjs.com/package/vako)
-            - [GitHub repository](https://github.com/sdevfr/vako)
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            ### Links
+            - [npm](https://www.npmjs.org/package/vako)
+            - [repo](${{ github.server_url }}/${{ github.repository }})
