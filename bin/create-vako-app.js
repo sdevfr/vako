@@ -1,79 +1,89 @@
 #!/usr/bin/env node
 
-const chalk = require("chalk");
-const { Command } = require("commander");
-const SetupWizard = require("./commands/setup");
-const QuickSetup = require("./commands/quick-setup");
+const chalk = require('chalk')
+const { Command } = require('commander')
+const path = require('path')
+const fs = require('fs')
 
-const program = new Command();
+// Fix: Read version from package.json instead of hardcoding
+const packageJsonPath = path.join(__dirname, '..', 'package.json')
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
+const version = packageJson.version
+
+const program = new Command()
 
 program
-  .name("create-vako-app")
-  .description("Create a new Vako application")
-  .version("1.3.0")
-  .argument("[project-name]", "Name of the project")
-  .option("--template <template>", "Template to use")
-  .option("--quick", "Quick setup with minimal questions")
-  .option("--wizard", "Full interactive wizard")
+  .name('create-vako-app')
+  .description('Create a new Vako application')
+  .version(version)
+  .argument('[project-name]', 'Name of the project')
+  .option('--template <template>', 'Template to use')
+  .option('--quick', 'Quick setup with minimal questions')
+  .option('--wizard', 'Full interactive wizard')
   .action(async (projectName, options) => {
-    console.log(chalk.blue.bold("🚀 Create Vako App\n"));
+    console.log(chalk.blue.bold('🚀 Create Vako App\n'))
 
     if (!projectName) {
-      console.log(chalk.red("❌ Project name is required"));
-      console.log(chalk.gray("Usage: npx create-vako-app my-app"));
-      process.exit(1);
+      console.log(chalk.red('❌ Project name is required'))
+      console.log(chalk.gray('Usage: npx create-vako-app my-app'))
+      process.exit(1)
     }
 
     try {
+      const SetupWizard = require('./commands/setup')
+      const QuickSetup = require('./commands/quick-setup')
+
       if (options.wizard) {
-        const wizard = new SetupWizard();
-        wizard.config.projectName = projectName;
-        await wizard.start();
+        const wizard = new SetupWizard()
+        wizard.config.projectName = projectName
+        await wizard.start()
       } else if (options.quick || options.template) {
-        const quickSetup = new QuickSetup(projectName, options);
-        await quickSetup.start();
+        const quickSetup = new QuickSetup(projectName, options)
+        await quickSetup.start()
       } else {
         // Default: ask user preference
-        const { setupType } = await require("inquirer").prompt([
+        const inquirer = require('inquirer')
+        const { setupType } = await inquirer.prompt([
           {
-            type: "list",
-            name: "setupType",
-            message: "🎯 How would you like to set up your project?",
+            type: 'list',
+            name: 'setupType',
+            message: '🎯 How would you like to set up your project?',
             choices: [
-              { name: "⚡ Quick - Essential options only", value: "quick" },
-              { name: "🧙‍♂️ Wizard - Full interactive setup", value: "wizard" },
+              { name: '⚡ Quick - Essential options only', value: 'quick' },
+              { name: '🧙‍♂️ Wizard - Full interactive setup', value: 'wizard' },
             ],
           },
-        ]);
+        ])
 
-        if (setupType === "wizard") {
-          const wizard = new SetupWizard();
-          wizard.config.projectName = projectName;
-          await wizard.start();
+        if (setupType === 'wizard') {
+          const wizard = new SetupWizard()
+          wizard.config.projectName = projectName
+          await wizard.start()
         } else {
-          const quickSetup = new QuickSetup(projectName, options);
-          await quickSetup.start();
+          const quickSetup = new QuickSetup(projectName, options)
+          await quickSetup.start()
         }
       }
     } catch (error) {
-      console.error(chalk.red("\n❌ Setup failed:"), error.message);
-      process.exit(1);
+      console.error(chalk.red('\n❌ Setup failed:'), error.message)
+      if (process.env.DEBUG) {
+        console.error(error.stack)
+      }
+      process.exit(1)
     }
-  });
+  })
 
-// Show help if no arguments
+// Show custom help if no arguments are provided
 if (process.argv.length <= 2) {
-  console.log(chalk.blue.bold("🚀 Create Vako App\n"));
-  console.log(chalk.white("Usage:"));
-  console.log(chalk.gray("  npx create-vako-app my-app"));
-  console.log(chalk.gray("  npx create-vako-app my-app --template api"));
-  console.log(chalk.gray("  npx create-vako-app my-app --wizard"));
-  console.log(chalk.gray("  npx create-vako-app my-app --quick"));
-  console.log(chalk.white("\nTemplates:"));
-  console.log(
-    chalk.gray("  default, api, blog, admin, ecommerce, portfolio\n"),
-  );
-  process.exit(0);
+  console.log(chalk.blue.bold('🚀 Create Vako App\n'))
+  console.log(chalk.white('Usage:'))
+  console.log(chalk.gray('  npx create-vako-app my-app'))
+  console.log(chalk.gray('  npx create-vako-app my-app --template api'))
+  console.log(chalk.gray('  npx create-vako-app my-app --wizard'))
+  console.log(chalk.gray('  npx create-vako-app my-app --quick'))
+  console.log(chalk.white('\nTemplates:'))
+  console.log(chalk.gray('  default, api, blog, admin, ecommerce, portfolio\n'))
+  process.exit(0)
 }
 
-program.parse();
+program.parse()

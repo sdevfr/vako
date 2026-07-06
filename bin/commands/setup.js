@@ -1,12 +1,9 @@
-const chalk = require('chalk');
-const inquirer = require('inquirer');
-const ora = require('ora');
-const boxen = require('boxen');
-const figlet = require('figlet');
-const gradient = require('gradient-string');
-const { createSpinner } = require('nanospinner');
-const path = require('path');  
-const fs = require('fs').promises;
+const chalk = require('chalk')
+const inquirer = require('inquirer')
+const boxen = require('boxen')
+const figlet = require('figlet')
+const gradient = require('gradient-string')
+const fs = require('fs') // FIX: Keep fs for existsSync, remove unused .promises
 
 /**
  * Assistant de configuration interactif pour les projets Vako
@@ -32,9 +29,9 @@ class SetupWizard {
       license: 'MIT',
       scripts: true,
       docker: false,
-      env: true
-    };
-    
+      env: true,
+    }
+
     // Configuration de sécurité
     this.securityConfig = {
       maxProjectNameLength: 50,
@@ -42,47 +39,105 @@ class SetupWizard {
       maxAuthorLength: 100,
       allowedFileNameChars: /^[a-zA-Z0-9\-_]+$/,
       maxFeatures: 20,
-      maxPlugins: 15
-    };
-    
+      maxPlugins: 15,
+    }
+
     // Templates prédéfinis
     this.templates = new Map([
-      ['default', {
-        name: '🌟 Default - Full-featured web application',
-        description: 'Complete web application with all features',
-        files: ['views/', 'routes/', 'public/', 'plugins/', 'middleware/', 'app.js']
-      }],
-      ['api', {
-        name: '🔌 API Only - REST API server',
-        description: 'RESTful API server with authentication',
-        files: ['routes/api/', 'middleware/', 'models/', 'tests/', 'server.js']
-      }],
-      ['blog', {
-        name: '📝 Blog - Content management system',
-        description: 'Blog engine with admin interface',
-        files: ['views/blog/', 'content/posts/', 'admin/', 'uploads/', 'blog.js']
-      }],
-      ['admin', {
-        name: '👑 Admin Dashboard - Management interface',
-        description: 'Administrative dashboard and management tools',
-        files: ['admin/views/', 'dashboard/', 'auth/', 'api/admin/', 'admin.js']
-      }],
-      ['ecommerce', {
-        name: '🛍️ E-commerce - Online store',
-        description: 'Complete e-commerce solution',
-        files: ['shop/views/', 'products/', 'orders/', 'payments/', 'store.js']
-      }],
-      ['portfolio', {
-        name: '🎭 Portfolio - Personal showcase',
-        description: 'Personal portfolio and project showcase',
-        files: ['portfolio/views/', 'projects/', 'gallery/', 'blog/', 'portfolio.js']
-      }],
-      ['pwa', {
-        name: '📱 PWA - Progressive Web App',
-        description: 'Progressive Web Application with offline support',
-        files: ['pwa/', 'sw/', 'manifest/', 'offline/', 'pwa.js']
-      }]
-    ]);
+      [
+        'default',
+        {
+          name: '🌟 Default - Full-featured web application',
+          description: 'Complete web application with all features',
+          files: [
+            'views/',
+            'routes/',
+            'public/',
+            'plugins/',
+            'middleware/',
+            'app.js',
+          ],
+        },
+      ],
+      [
+        'api',
+        {
+          name: '🔌 API Only - REST API server',
+          description: 'RESTful API server with authentication',
+          files: [
+            'routes/api/',
+            'middleware/',
+            'models/',
+            'tests/',
+            'server.js',
+          ],
+        },
+      ],
+      [
+        'blog',
+        {
+          name: '📝 Blog - Content management system',
+          description: 'Blog engine with admin interface',
+          files: [
+            'views/blog/',
+            'content/posts/',
+            'admin/',
+            'uploads/',
+            'blog.js',
+          ],
+        },
+      ],
+      [
+        'admin',
+        {
+          name: '👑 Admin Dashboard - Management interface',
+          description: 'Administrative dashboard and management tools',
+          files: [
+            'admin/views/',
+            'dashboard/',
+            'auth/',
+            'api/admin/',
+            'admin.js',
+          ],
+        },
+      ],
+      [
+        'ecommerce',
+        {
+          name: '🛍️ E-commerce - Online store',
+          description: 'Complete e-commerce solution',
+          files: [
+            'shop/views/',
+            'products/',
+            'orders/',
+            'payments/',
+            'store.js',
+          ],
+        },
+      ],
+      [
+        'portfolio',
+        {
+          name: '🎭 Portfolio - Personal showcase',
+          description: 'Personal portfolio and project showcase',
+          files: [
+            'portfolio/views/',
+            'projects/',
+            'gallery/',
+            'blog/',
+            'portfolio.js',
+          ],
+        },
+      ],
+      [
+        'pwa',
+        {
+          name: '📱 PWA - Progressive Web App',
+          description: 'Progressive Web Application with offline support',
+          files: ['pwa/', 'sw/', 'manifest/', 'offline/', 'pwa.js'],
+        },
+      ],
+    ])
   }
 
   /**
@@ -90,32 +145,32 @@ class SetupWizard {
    */
   async start() {
     try {
-      console.clear();
-      await this.showWelcome();
-      await this.gatherProjectInfo();
-      
+      console.clear()
+      await this.showWelcome()
+      await this.gatherProjectInfo()
+
       // Sélection du type de code (EJS, TypeScript, Next.js)
       if (typeof this.selectCodeType === 'function') {
-        await this.selectCodeType();
+        await this.selectCodeType()
       }
-      
+
       // Sélection de la langue du site
       if (typeof this.selectLanguage === 'function') {
-        await this.selectLanguage();
+        await this.selectLanguage()
       }
-      
-      await this.selectTemplate();
-      await this.selectFeatures();
-      await this.configureDatabase();
-      await this.configureAuth();
-      await this.selectPlugins();
-      await this.selectStyling();
-      await this.finalOptions();
-      await this.confirmOptions();
-      await this.executeSetup();
-      await this.showCompletion();
+
+      await this.selectTemplate()
+      await this.selectFeatures()
+      await this.configureDatabase()
+      await this.configureAuth()
+      await this.selectPlugins()
+      await this.selectStyling()
+      await this.finalOptions()
+      await this.confirmOptions()
+      await this.executeSetup()
+      await this.showCompletion()
     } catch (error) {
-      await this.handleError(error);
+      await this.handleError(error)
     }
   }
 
@@ -126,49 +181,51 @@ class SetupWizard {
     try {
       const title = figlet.textSync('VAKO', {
         font: 'ANSI Shadow',
-        horizontalLayout: 'fitted'
-      });
+        horizontalLayout: 'fitted',
+      })
 
-      console.log(gradient.rainbow(title));
+      console.log(gradient.rainbow(title))
     } catch (error) {
       // Fallback si figlet échoue
-      console.log(chalk.cyan.bold('╔══════════════════════════════════╗'));
-      console.log(chalk.cyan.bold('║            VAKO               ║'));
-      console.log(chalk.cyan.bold('╚══════════════════════════════════╝'));
+      console.log(chalk.cyan.bold('╔══════════════════════════════════╗'))
+      console.log(chalk.cyan.bold('║            VAKO               ║'))
+      console.log(chalk.cyan.bold('╚══════════════════════════════════╝'))
     }
 
-    console.log(chalk.cyan.bold('\n✨ Interactive Project Setup Wizard ✨\n'));
-    
+    console.log(chalk.cyan.bold('\n✨ Interactive Project Setup Wizard ✨\n'))
+
     const welcomeBox = boxen(
       chalk.white('🎉 Welcome to Vako Setup Wizard!\n\n') +
-      chalk.gray('This wizard will guide you through creating a new\n') +
-      chalk.gray('Vako project with all the features you need.\n\n') +
-      chalk.blue('✓ Templates & Examples\n') +
-      chalk.blue('✓ Authentication System\n') +
-      chalk.blue('✓ Database Integration\n') +
-      chalk.blue('✓ Plugin Ecosystem\n') +
-      chalk.blue('✓ Beautiful UI Frameworks'),
+        chalk.gray('This wizard will guide you through creating a new\n') +
+        chalk.gray('Vako project with all the features you need.\n\n') +
+        chalk.blue('✓ Templates & Examples\n') +
+        chalk.blue('✓ Authentication System\n') +
+        chalk.blue('✓ Database Integration\n') +
+        chalk.blue('✓ Plugin Ecosystem\n') +
+        chalk.blue('✓ Beautiful UI Frameworks'),
       {
         padding: 1,
         margin: 1,
         borderStyle: 'double',
         borderColor: 'cyan',
-        textAlignment: 'center'
+        textAlignment: 'center',
       }
-    );
+    )
 
-    console.log(welcomeBox);
+    console.log(welcomeBox)
 
-    const { ready } = await inquirer.prompt([{
-      type: 'confirm',  
-      name: 'ready',
-      message: '🚀 Ready to create something amazing?',
-      default: true
-    }]);
+    const { ready } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'ready',
+        message: '🚀 Ready to create something amazing?',
+        default: true,
+      },
+    ])
 
     if (!ready) {
-      console.log(chalk.yellow('\n👋 See you later! Happy coding!'));
-      process.exit(0);
+      console.log(chalk.yellow('\n👋 See you later! Happy coding!'))
+      process.exit(0)
     }
   }
 
@@ -176,29 +233,29 @@ class SetupWizard {
    * Collecte des informations de base du projet
    */
   async gatherProjectInfo() {
-    console.log(chalk.blue.bold('\n📝 Project Information\n'));
+    console.log(chalk.blue.bold('\n📝 Project Information\n'))
 
     const questions = [
       {
         type: 'input',
         name: 'projectName',
-        message: '📁 What\'s your project name?',
+        message: "📁 What's your project name?",
         default: 'my-vako-app',
-        validate: (input) => this.validateProjectName(input)
+        validate: (input) => this.validateProjectName(input),
       },
       {
-        type: 'input', 
+        type: 'input',
         name: 'description',
         message: '📄 Project description:',
         default: 'A modern web application built with Vako',
-        validate: (input) => this.validateDescription(input)
+        validate: (input) => this.validateDescription(input),
       },
       {
         type: 'input',
         name: 'author',
         message: '👤 Author name:',
         default: process.env.USER || process.env.USERNAME || '',
-        validate: (input) => this.validateAuthor(input)
+        validate: (input) => this.validateAuthor(input),
       },
       {
         type: 'list',
@@ -209,61 +266,66 @@ class SetupWizard {
           { name: '🔒 ISC - Simple and permissive', value: 'ISC' },
           { name: '⚖️ Apache-2.0 - Patent protection', value: 'Apache-2.0' },
           { name: '🆓 GPL-3.0 - Copyleft', value: 'GPL-3.0' },
-          { name: '🚫 Unlicense - Public domain', value: 'Unlicense' }
+          { name: '🚫 Unlicense - Public domain', value: 'Unlicense' },
         ],
-        default: 'MIT'
-      }
-    ];
+        default: 'MIT',
+      },
+    ]
 
-    const answers = await inquirer.prompt(questions);
-    Object.assign(this.config, this.sanitizeProjectInfo(answers));
+    const answers = await inquirer.prompt(questions)
+    Object.assign(this.config, this.sanitizeProjectInfo(answers))
   }
 
   /**
    * Sélection du type de code (EJS, TypeScript, Next.js)
    */
   async selectCodeType() {
-    console.log(chalk.blue.bold('\n💻 Choose Your Code Type\n'));
+    console.log(chalk.blue.bold('\n💻 Choose Your Code Type\n'))
 
     const codeTypeChoices = [
       {
         name: '📄 EJS - Traditional server-side rendering with EJS templates',
         value: 'ejs',
-        description: 'Classic Vako.js with EJS views, perfect for traditional web apps'
+        description:
+          'Classic Vako.js with EJS views, perfect for traditional web apps',
       },
       {
         name: '📘 TypeScript - Type-safe JavaScript with TypeScript',
         value: 'typescript',
-        description: 'Modern TypeScript support with type definitions and IntelliSense'
+        description:
+          'Modern TypeScript support with type definitions and IntelliSense',
       },
       {
         name: '⚛️ Next.js - React framework with SSR and SSG',
         value: 'nextjs',
-        description: 'Next.js integration with React, Server-Side Rendering, and Static Generation'
-      }
-    ];
+        description:
+          'Next.js integration with React, Server-Side Rendering, and Static Generation',
+      },
+    ]
 
     try {
-      const { codeType } = await inquirer.prompt([{
-        type: 'list',
-        name: 'codeType',
-        message: '🎯 Select your preferred code type:',
-        choices: codeTypeChoices.map(choice => ({
-          name: choice.name,
-          value: choice.value
-        })),
-        pageSize: 10
-      }]);
+      const { codeType } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'codeType',
+          message: '🎯 Select your preferred code type:',
+          choices: codeTypeChoices.map((choice) => ({
+            name: choice.name,
+            value: choice.value,
+          })),
+          pageSize: 10,
+        },
+      ])
 
-      this.config.codeType = codeType || 'ejs'; // Par défaut EJS
-      
-      const selectedChoice = codeTypeChoices.find(c => c.value === codeType);
+      this.config.codeType = codeType || 'ejs' // Par défaut EJS
+
+      const selectedChoice = codeTypeChoices.find((c) => c.value === codeType)
       if (selectedChoice) {
-        console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+        console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`))
       }
     } catch (error) {
-      console.error(chalk.red('Error selecting code type:'), error.message);
-      this.config.codeType = 'ejs'; // Par défaut EJS en cas d'erreur
+      console.error(chalk.red('Error selecting code type:'), error.message)
+      this.config.codeType = 'ejs' // Par défaut EJS en cas d'erreur
     }
   }
 
@@ -271,72 +333,74 @@ class SetupWizard {
    * Sélection de la langue du site
    */
   async selectLanguage() {
-    console.log(chalk.blue.bold('\n🌍 Choose Your Site Language\n'));
+    console.log(chalk.blue.bold('\n🌍 Choose Your Site Language\n'))
 
     const languageChoices = [
       {
         name: '🇫🇷 Français - French',
         value: 'fr',
-        description: 'French language for your site'
+        description: 'French language for your site',
       },
       {
         name: '🇬🇧 English - English',
         value: 'en',
-        description: 'English language for your site'
+        description: 'English language for your site',
       },
       {
         name: '🇪🇸 Español - Spanish',
         value: 'es',
-        description: 'Spanish language for your site'
+        description: 'Spanish language for your site',
       },
       {
         name: '🇩🇪 Deutsch - German',
         value: 'de',
-        description: 'German language for your site'
+        description: 'German language for your site',
       },
       {
         name: '🇮🇹 Italiano - Italian',
         value: 'it',
-        description: 'Italian language for your site'
+        description: 'Italian language for your site',
       },
       {
         name: '🇵🇹 Português - Portuguese',
         value: 'pt',
-        description: 'Portuguese language for your site'
+        description: 'Portuguese language for your site',
       },
       {
         name: '🇳🇱 Nederlands - Dutch',
         value: 'nl',
-        description: 'Dutch language for your site'
+        description: 'Dutch language for your site',
       },
       {
         name: '🌐 Multi-language - Multiple languages',
         value: 'multi',
-        description: 'Support for multiple languages'
-      }
-    ];
+        description: 'Support for multiple languages',
+      },
+    ]
 
     try {
-      const { language } = await inquirer.prompt([{
-        type: 'list',
-        name: 'language',
-        message: '🌍 Select the language for your site:',
-        choices: languageChoices.map(choice => ({
-          name: choice.name,
-          value: choice.value
-        })),
-        pageSize: 10
-      }]);
+      const { language } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'language',
+          message: '🌍 Select the language for your site:',
+          choices: languageChoices.map((choice) => ({
+            name: choice.name,
+            value: choice.value,
+          })),
+          pageSize: 10,
+        },
+      ])
 
-      this.config.language = language || 'fr'; // Par défaut français
-      
-      const selectedChoice = languageChoices.find(c => c.value === language);
+      this.config.language = language || 'fr' // Par défaut français
+
+      const selectedChoice = languageChoices.find((c) => c.value === language)
       if (selectedChoice) {
-        console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`));
+        console.log(chalk.gray(`\n✓ Selected: ${selectedChoice.description}\n`))
       }
     } catch (error) {
-      console.error(chalk.red('Error selecting language:'), error.message);
-      this.config.language = 'fr'; // Par défaut français en cas d'erreur
+      console.error(chalk.red('Error selecting language:'), error.message)
+      this.config.language = 'fr' // Par défaut français en cas d'erreur
     }
   }
 
@@ -344,69 +408,77 @@ class SetupWizard {
    * Sélection du template de projet
    */
   async selectTemplate() {
-    console.log(chalk.blue.bold('\n🎨 Choose Your Template\n'));
+    console.log(chalk.blue.bold('\n🎨 Choose Your Template\n'))
 
     // Filtrer les templates selon le type de code
-    let availableTemplates = Array.from(this.templates.entries());
-    
+    let availableTemplates = Array.from(this.templates.entries())
+
     // Si Next.js est sélectionné, limiter les options
     if (this.config.codeType === 'nextjs') {
-      availableTemplates = availableTemplates.filter(([key]) => 
+      availableTemplates = availableTemplates.filter(([key]) =>
         ['default', 'api', 'blog', 'portfolio'].includes(key)
-      );
+      )
     }
 
     const templateChoices = availableTemplates.map(([value, template]) => ({
       name: template.name,
-      value
-    }));
+      value,
+    }))
 
-    const { template } = await inquirer.prompt([{
-      type: 'list',
-      name: 'template',
-      message: '🎯 Select a template:',
-      choices: templateChoices,
-      pageSize: 10
-    }]);
+    const { template } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'template',
+        message: '🎯 Select a template:',
+        choices: templateChoices,
+        pageSize: 10,
+      },
+    ])
 
-    this.config.template = template;
-    this.showTemplatePreview(template);
+    this.config.template = template
+    this.showTemplatePreview(template)
   }
 
   /**
    * Affichage de l'aperçu du template sélectionné
    */
   showTemplatePreview(templateName) {
-    const template = this.templates.get(templateName);
-    if (!template) return;
+    const template = this.templates.get(templateName)
+    if (!template) return
 
-    const preview = template.files.map(file => `📁 ${file}`).join('\n');
-    
+    const preview = template.files.map((file) => `📁 ${file}`).join('\n')
+
     const previewBox = boxen(
-      chalk.cyan('📋 Template Structure:\n\n') + 
-      chalk.gray(preview) + '\n\n' +
-      chalk.blue('Description: ') + chalk.white(template.description),
+      chalk.cyan('📋 Template Structure:\n\n') +
+        chalk.gray(preview) +
+        '\n\n' +
+        chalk.blue('Description: ') +
+        chalk.white(template.description),
       {
         padding: 1,
         margin: { top: 1, bottom: 1, left: 2, right: 2 },
         borderStyle: 'round',
         borderColor: 'blue',
         title: '📦 Project Structure',
-        titleAlignment: 'center'
+        titleAlignment: 'center',
       }
-    );
+    )
 
-    console.log(previewBox);
+    console.log(previewBox)
   }
 
   /**
    * Sélection des fonctionnalités
    */
   async selectFeatures() {
-    console.log(chalk.blue.bold('\n⚡ Select Features & Add-ons\n'));
+    console.log(chalk.blue.bold('\n⚡ Select Features & Add-ons\n'))
 
     const featureChoices = [
-      { name: '🔥 Hot Reload Development Server', value: 'hotreload', checked: true },
+      {
+        name: '🔥 Hot Reload Development Server',
+        value: 'hotreload',
+        checked: true,
+      },
       { name: '📱 Progressive Web App (PWA)', value: 'pwa' },
       { name: '🎨 Advanced Layout System', value: 'layouts', checked: true },
       { name: '🔍 SEO Optimization', value: 'seo' },
@@ -419,47 +491,57 @@ class SetupWizard {
       { name: '📋 Form Validation', value: 'validation' },
       { name: '🎭 Component System', value: 'components' },
       { name: '🗜️ Image Processing', value: 'imageprocessing' },
-      { name: '🔄 Backup System', value: 'backup' }
-    ];
+      { name: '🔄 Backup System', value: 'backup' },
+    ]
 
-    const { features } = await inquirer.prompt([{
-      type: 'checkbox',
-      name: 'features',
-      message: '🎁 Which features would you like to include?',
-      choices: featureChoices,
-      pageSize: 15,
-      validate: (input) => this.validateFeatures(input)
-    }]);
+    const { features } = await inquirer.prompt([
+      {
+        type: 'checkbox',
+        name: 'features',
+        message: '🎁 Which features would you like to include?',
+        choices: featureChoices,
+        pageSize: 15,
+        validate: (input) => this.validateFeatures(input),
+      },
+    ])
 
-    this.config.features = features;
+    this.config.features = features
   }
 
   /**
    * Configuration de la base de données
    */
   async configureDatabase() {
-    const dbRequiredTemplates = ['api', 'blog', 'admin', 'ecommerce'];
-    
+    const dbRequiredTemplates = ['api', 'blog', 'admin', 'ecommerce']
+
     if (dbRequiredTemplates.includes(this.config.template)) {
-      console.log(chalk.blue.bold('\n🗄️ Database Configuration\n'));
+      console.log(chalk.blue.bold('\n🗄️ Database Configuration\n'))
 
       const databaseChoices = [
-        { name: '📄 SQLite - File-based (recommended for dev)', value: 'sqlite' },
-        { name: '🐘 PostgreSQL - Advanced relational database', value: 'postgresql' },
+        {
+          name: '📄 SQLite - File-based (recommended for dev)',
+          value: 'sqlite',
+        },
+        {
+          name: '🐘 PostgreSQL - Advanced relational database',
+          value: 'postgresql',
+        },
         { name: '🐬 MySQL - Popular relational database', value: 'mysql' },
         { name: '🍃 MongoDB - Document database', value: 'mongodb' },
         { name: '⚡ Redis - In-memory cache/database', value: 'redis' },
-        { name: '🚫 None - No database', value: 'none' }
-      ];
+        { name: '🚫 None - No database', value: 'none' },
+      ]
 
-      const { database } = await inquirer.prompt([{
-        type: 'list',
-        name: 'database',
-        message: '💾 Choose your database:',
-        choices: databaseChoices
-      }]);
+      const { database } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'database',
+          message: '💾 Choose your database:',
+          choices: databaseChoices,
+        },
+      ])
 
-      this.config.database = database;
+      this.config.database = database
     }
   }
 
@@ -467,23 +549,25 @@ class SetupWizard {
    * Configuration du système d'authentification
    */
   async configureAuth() {
-    const authRequiredTemplates = ['default', 'blog', 'admin', 'ecommerce'];
-    
-    if (authRequiredTemplates.includes(this.config.template)) {
-      console.log(chalk.blue.bold('\n🔐 Authentication System\n'));
+    const authRequiredTemplates = ['default', 'blog', 'admin', 'ecommerce']
 
-      const { enableAuth } = await inquirer.prompt([{
-        type: 'confirm',
-        name: 'enableAuth',
-        message: '🔑 Enable authentication system?',
-        default: ['admin', 'ecommerce'].includes(this.config.template)
-      }]);
+    if (authRequiredTemplates.includes(this.config.template)) {
+      console.log(chalk.blue.bold('\n🔐 Authentication System\n'))
+
+      const { enableAuth } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'enableAuth',
+          message: '🔑 Enable authentication system?',
+          default: ['admin', 'ecommerce'].includes(this.config.template),
+        },
+      ])
 
       if (enableAuth) {
-        const authConfig = await this.configureAuthDetails();
-        this.config.auth = { enabled: true, ...authConfig };
+        const authConfig = await this.configureAuthDetails()
+        this.config.auth = { enabled: true, ...authConfig }
       } else {
-        this.config.auth = { enabled: false };
+        this.config.auth = { enabled: false }
       }
     }
   }
@@ -503,9 +587,10 @@ class SetupWizard {
           { name: '📘 Facebook OAuth', value: 'facebook' },
           { name: '🐙 GitHub OAuth', value: 'github' },
           { name: '💼 LinkedIn OAuth', value: 'linkedin' },
-          { name: '🔗 JWT Tokens', value: 'jwt' }
+          { name: '🔗 JWT Tokens', value: 'jwt' },
         ],
-        validate: (input) => input.length > 0 || 'At least one method is required'
+        validate: (input) =>
+          input.length > 0 || 'At least one method is required',
       },
       {
         type: 'checkbox',
@@ -518,50 +603,63 @@ class SetupWizard {
           { name: '🔄 Password reset', value: 'passwordReset' },
           { name: '🔒 Two-factor authentication', value: '2fa' },
           { name: '📊 Login analytics', value: 'analytics' },
-          { name: '🚫 Account lockout', value: 'lockout' }
-        ]
-      }
-    ]);
+          { name: '🚫 Account lockout', value: 'lockout' },
+        ],
+      },
+    ])
   }
 
   /**
    * Sélection des plugins
    */
   async selectPlugins() {
-    console.log(chalk.blue.bold('\n🔌 Plugins & Extensions\n'));
+    console.log(chalk.blue.bold('\n🔌 Plugins & Extensions\n'))
 
     const pluginChoices = [
-      { name: '📊 Logger - Advanced request/error logging', value: 'logger', checked: true },
-      { name: '🛡️ Security - Helmet, CORS, rate limiting', value: 'security', checked: true },
+      {
+        name: '📊 Logger - Advanced request/error logging',
+        value: 'logger',
+        checked: true,
+      },
+      {
+        name: '🛡️ Security - Helmet, CORS, rate limiting',
+        value: 'security',
+        checked: true,
+      },
       { name: '⚡ Cache - Redis/Memory caching system', value: 'cache' },
       { name: '📈 Monitoring - Health checks & metrics', value: 'monitoring' },
-      { name: '📦 Compression - Gzip response compression', value: 'compression' },
+      {
+        name: '📦 Compression - Gzip response compression',
+        value: 'compression',
+      },
       { name: '🔄 Backup - Automated data backups', value: 'backup' },
       { name: '🎨 Image Processing - Sharp/Jimp integration', value: 'images' },
       { name: '📧 Mailer - Email templates & sending', value: 'mailer' },
       { name: '📅 Scheduler - Cron jobs & tasks', value: 'scheduler' },
       { name: '🔍 Search - Full-text search engine', value: 'search' },
       { name: '📱 Push Notifications', value: 'notifications' },
-      { name: '🏪 Session Store - Persistent sessions', value: 'sessionstore' }
-    ];
+      { name: '🏪 Session Store - Persistent sessions', value: 'sessionstore' },
+    ]
 
-    const { plugins } = await inquirer.prompt([{
-      type: 'checkbox',
-      name: 'plugins',
-      message: '🎯 Select plugins to install:',
-      choices: pluginChoices,
-      pageSize: 12,
-      validate: (input) => this.validatePlugins(input)
-    }]);
+    const { plugins } = await inquirer.prompt([
+      {
+        type: 'checkbox',
+        name: 'plugins',
+        message: '🎯 Select plugins to install:',
+        choices: pluginChoices,
+        pageSize: 12,
+        validate: (input) => this.validatePlugins(input),
+      },
+    ])
 
-    this.config.plugins = plugins;
+    this.config.plugins = plugins
   }
 
   /**
    * Sélection du framework de style
    */
   async selectStyling() {
-    console.log(chalk.blue.bold('\n🎨 Styling & UI Framework\n'));
+    console.log(chalk.blue.bold('\n🎨 Styling & UI Framework\n'))
 
     const stylingQuestions = [
       {
@@ -569,15 +667,27 @@ class SetupWizard {
         name: 'framework',
         message: '🎭 Choose a CSS framework:',
         choices: [
-          { name: '🅱️ Bootstrap 5 - Popular component library', value: 'bootstrap' },
-          { name: '🎯 Tailwind CSS - Utility-first framework', value: 'tailwind' },
+          {
+            name: '🅱️ Bootstrap 5 - Popular component library',
+            value: 'bootstrap',
+          },
+          {
+            name: '🎯 Tailwind CSS - Utility-first framework',
+            value: 'tailwind',
+          },
           { name: '🎪 Bulma - Modern CSS framework', value: 'bulma' },
-          { name: '⚡ Material Design - Google Material UI', value: 'material' },
-          { name: '🎨 Foundation - Responsive front-end framework', value: 'foundation' },
+          {
+            name: '⚡ Material Design - Google Material UI',
+            value: 'material',
+          },
+          {
+            name: '🎨 Foundation - Responsive front-end framework',
+            value: 'foundation',
+          },
           { name: '🎭 Semantic UI - Human-friendly HTML', value: 'semantic' },
           { name: '🖼️ Custom CSS - Write your own styles', value: 'custom' },
-          { name: '🚫 None - No CSS framework', value: 'none' }
-        ]
+          { name: '🚫 None - No CSS framework', value: 'none' },
+        ],
       },
       {
         type: 'list',
@@ -587,88 +697,90 @@ class SetupWizard {
           { name: '🌅 Light - Clean and bright', value: 'light' },
           { name: '🌙 Dark - Easy on the eyes', value: 'dark' },
           { name: '🎨 Auto - Follow system preference', value: 'auto' },
-          { name: '🌈 Custom - Define your own colors', value: 'custom' }
+          { name: '🌈 Custom - Define your own colors', value: 'custom' },
         ],
-        when: (answers) => answers.framework !== 'none'
-      }
-    ];
+        when: (answers) => answers.framework !== 'none',
+      },
+    ]
 
-    const stylingAnswers = await inquirer.prompt(stylingQuestions);
-    this.config.styling = stylingAnswers.framework;
-    this.config.theme = stylingAnswers.theme || 'light';
+    const stylingAnswers = await inquirer.prompt(stylingQuestions)
+    this.config.styling = stylingAnswers.framework
+    this.config.theme = stylingAnswers.theme || 'light'
   }
 
   /**
    * Options finales de configuration
    */
   async finalOptions() {
-    console.log(chalk.blue.bold('\n⚙️ Final Configuration\n'));
+    console.log(chalk.blue.bold('\n⚙️ Final Configuration\n'))
 
     const finalQuestions = [
       {
         type: 'confirm',
         name: 'git',
         message: '📦 Initialize Git repository?',
-        default: true
+        default: true,
       },
       {
         type: 'confirm',
         name: 'install',
         message: '📥 Install dependencies automatically?',
-        default: true
+        default: true,
       },
       {
         type: 'confirm',
         name: 'scripts',
         message: '📜 Add useful npm scripts?',
-        default: true
+        default: true,
       },
       {
         type: 'confirm',
         name: 'docker',
         message: '🐳 Generate Docker configuration?',
-        default: false
+        default: false,
       },
       {
         type: 'confirm',
         name: 'env',
         message: '🔐 Create environment configuration?',
-        default: true
-      }
-    ];
+        default: true,
+      },
+    ]
 
-    const finalAnswers = await inquirer.prompt(finalQuestions);
-    Object.assign(this.config, finalAnswers);
+    const finalAnswers = await inquirer.prompt(finalQuestions)
+    Object.assign(this.config, finalAnswers)
   }
 
   /**
    * Confirmation de la configuration
    */
   async confirmOptions() {
-    console.log(chalk.blue.bold('\n📋 Configuration Summary\n'));
+    console.log(chalk.blue.bold('\n📋 Configuration Summary\n'))
 
-    const summary = this.generateSummary();
+    const summary = this.generateSummary()
     const summaryBox = boxen(summary, {
       padding: 1,
       margin: 1,
       borderStyle: 'double',
       borderColor: 'green',
       title: '📦 Project Configuration',
-      titleAlignment: 'center'
-    });
+      titleAlignment: 'center',
+    })
 
-    console.log(summaryBox);
+    console.log(summaryBox)
 
-    const { confirm } = await inquirer.prompt([{
-      type: 'confirm',
-      name: 'confirm',
-      message: '✅ Proceed with this configuration?',
-      default: true
-    }]);
+    const { confirm } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: '✅ Proceed with this configuration?',
+        default: true,
+      },
+    ])
 
     if (!confirm) {
-      console.log(chalk.yellow('\n👋 Setup cancelled. See you later!'));
-      process.exit(0);
+      console.log(chalk.yellow('\n👋 Setup cancelled. See you later!'))
+      process.exit(0)
     }
   }
 
@@ -676,25 +788,36 @@ class SetupWizard {
    * Génération du résumé de configuration
    */
   generateSummary() {
-    const { projectName, template, features, database, auth, plugins, styling, theme, codeType, language } = this.config;
-    
+    const {
+      projectName,
+      template,
+      features,
+      database,
+      auth,
+      plugins,
+      styling,
+      theme,
+      codeType,
+      language,
+    } = this.config
+
     const codeTypeLabels = {
-      'ejs': '📄 EJS',
-      'typescript': '📘 TypeScript',
-      'nextjs': '⚛️ Next.js'
-    };
+      ejs: '📄 EJS',
+      typescript: '📘 TypeScript',
+      nextjs: '⚛️ Next.js',
+    }
 
     const languageLabels = {
-      'fr': '🇫🇷 Français',
-      'en': '🇬🇧 English',
-      'es': '🇪🇸 Español',
-      'de': '🇩🇪 Deutsch',
-      'it': '🇮🇹 Italiano',
-      'pt': '🇵🇹 Português',
-      'nl': '🇳🇱 Nederlands',
-      'multi': '🌐 Multi-language'
-    };
-    
+      fr: '🇫🇷 Français',
+      en: '🇬🇧 English',
+      es: '🇪🇸 Español',
+      de: '🇩🇪 Deutsch',
+      it: '🇮🇹 Italiano',
+      pt: '🇵🇹 Português',
+      nl: '🇳🇱 Nederlands',
+      multi: '🌐 Multi-language',
+    }
+
     return chalk.white(`
 🏷️  Project: ${chalk.cyan.bold(projectName)}
 📝 Description: ${chalk.gray(this.config.description)}
@@ -707,17 +830,17 @@ class SetupWizard {
 🎭 Styling: ${chalk.yellow(styling)} ${theme ? `(${theme})` : ''}
 
 📦 Features (${features.length}):
-${features.map(f => `   ✓ ${f}`).join('\n') || '   No additional features'}
+ ${features.map((f) => `   ✓ ${f}`).join('\n') || '   No additional features'}
 
 🔌 Plugins (${plugins.length}):
-${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
+ ${plugins.map((p) => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
 
 ⚙️  Options:
    📦 Git: ${this.config.git ? '✅' : '❌'}
    📥 Auto-install: ${this.config.install ? '✅' : '❌'}
    🐳 Docker: ${this.config.docker ? '✅' : '❌'}
    🔐 Environment: ${this.config.env ? '✅' : '❌'}
-    `);
+    `)
   }
 
   /**
@@ -725,11 +848,11 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   async executeSetup() {
     try {
-      const SetupExecutor = require('./setup-executor');
-      const executor = new SetupExecutor(this.config);
-      await executor.execute();
+      const SetupExecutor = require('./setup-executor')
+      const executor = new SetupExecutor(this.config)
+      await executor.execute()
     } catch (error) {
-      throw new Error(`Setup execution failed: ${error.message}`);
+      throw new Error(`Setup execution failed: ${error.message}`)
     }
   }
 
@@ -737,30 +860,30 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    * Écran de finalisation
    */
   async showCompletion() {
-    console.log(chalk.green.bold('\n🎉 Setup Complete!\n'));
-    
-    const completionMessage = this.generateCompletionMessage();
+    console.log(chalk.green.bold('\n🎉 Setup Complete!\n'))
+
+    const completionMessage = this.generateCompletionMessage()
     const completionBox = boxen(completionMessage, {
       padding: 1,
       margin: 1,
       borderStyle: 'round',
       borderColor: 'green',
       title: '🎊 Success!',
-      titleAlignment: 'center'
-    });
+      titleAlignment: 'center',
+    })
 
-    console.log(completionBox);
-    
+    console.log(completionBox)
+
     // Utiliser gradient.rainbow avec fallback sur chalk.green
     try {
       if (gradient && typeof gradient.rainbow === 'function') {
-        console.log(gradient.rainbow('\n✨ Happy coding with Vako! ✨\n'));
+        console.log(gradient.rainbow('\n✨ Happy coding with Vako! ✨\n'))
       } else {
-        console.log(chalk.green('\n✨ Happy coding with Vako! ✨\n'));
+        console.log(chalk.green('\n✨ Happy coding with Vako! ✨\n'))
       }
     } catch (error) {
       // Fallback si gradient.rainbow échoue
-      console.log(chalk.green('\n✨ Happy coding with Vako! ✨\n'));
+      console.log(chalk.green('\n✨ Happy coding with Vako! ✨\n'))
     }
   }
 
@@ -768,16 +891,22 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    * Génération du message de finalisation
    */
   generateCompletionMessage() {
-    const { projectName } = this.config;
-    
-    return chalk.white(`Your project "${chalk.cyan.bold(projectName)}" has been created successfully!\n\n`) +
+    const { projectName } = this.config
+
+    // FIX: Removed stray backtick that caused SyntaxError
+    return (
+      chalk.white(
+        `Your project "${chalk.cyan.bold(projectName)}" has been created successfully!\n\n`
+      ) +
       chalk.gray('Next steps:\n') +
       chalk.white(`  📁 cd ${projectName}\n`) +
       chalk.white('  🚀 npm run dev\n') +
-      chalk.white('  🌐 vako dev\n\n`') +
+      chalk.white('  🌐 vako dev\n\n') +
       chalk.gray('Your app will be available at: ') +
       chalk.blue.underline('http://localhost:3000\n\n') +
-      chalk.yellow('📚 Documentation: ') + chalk.blue.underline('https://vako.js.org');
+      chalk.yellow('📚 Documentation: ') +
+      chalk.blue.underline('https://vako.js.org')
+    )
   }
 
   // === Méthodes de validation sécurisées ===
@@ -787,28 +916,28 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   validateProjectName(input) {
     if (!input || input.length < 1) {
-      return 'Project name is required';
+      return 'Project name is required'
     }
-    
+
     if (input.length > this.securityConfig.maxProjectNameLength) {
-      return `Project name must be less than ${this.securityConfig.maxProjectNameLength} characters`;
+      return `Project name must be less than ${this.securityConfig.maxProjectNameLength} characters`
     }
-    
+
     if (!this.securityConfig.allowedFileNameChars.test(input)) {
-      return 'Use only letters, numbers, hyphens and underscores';
+      return 'Use only letters, numbers, hyphens and underscores'
     }
-    
+
     try {
       // Vérification synchrone de l'existence du répertoire
-      const fs = require('fs');
+      const fs = require('fs')
       if (fs.existsSync(input)) {
-        return 'Directory already exists';
+        return 'Directory already exists'
       }
     } catch (error) {
       // Ignorer les erreurs de vérification
     }
-    
-    return true;
+
+    return true
   }
 
   /**
@@ -816,9 +945,9 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   validateDescription(input) {
     if (input && input.length > this.securityConfig.maxDescriptionLength) {
-      return `Description must be less than ${this.securityConfig.maxDescriptionLength} characters`;
+      return `Description must be less than ${this.securityConfig.maxDescriptionLength} characters`
     }
-    return true;
+    return true
   }
 
   /**
@@ -826,9 +955,9 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   validateAuthor(input) {
     if (input && input.length > this.securityConfig.maxAuthorLength) {
-      return `Author name must be less than ${this.securityConfig.maxAuthorLength} characters`;
+      return `Author name must be less than ${this.securityConfig.maxAuthorLength} characters`
     }
-    return true;
+    return true
   }
 
   /**
@@ -836,9 +965,9 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   validateFeatures(input) {
     if (input.length > this.securityConfig.maxFeatures) {
-      return `Maximum ${this.securityConfig.maxFeatures} features allowed`;
+      return `Maximum ${this.securityConfig.maxFeatures} features allowed`
     }
-    return true;
+    return true
   }
 
   /**
@@ -846,9 +975,9 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   validatePlugins(input) {
     if (input.length > this.securityConfig.maxPlugins) {
-      return `Maximum ${this.securityConfig.maxPlugins} plugins allowed`;
+      return `Maximum ${this.securityConfig.maxPlugins} plugins allowed`
     }
-    return true;
+    return true
   }
 
   /**
@@ -856,61 +985,73 @@ ${plugins.map(p => `   ⚡ ${p}`).join('\n') || '   No plugins selected'}
    */
   sanitizeProjectInfo(info) {
     return {
-      projectName: this.sanitizeString(info.projectName, this.securityConfig.maxProjectNameLength),
-      description: this.sanitizeString(info.description, this.securityConfig.maxDescriptionLength),
-      author: this.sanitizeString(info.author, this.securityConfig.maxAuthorLength),
-      license: info.license || 'MIT'
-    };
+      projectName: this.sanitizeString(
+        info.projectName,
+        this.securityConfig.maxProjectNameLength
+      ),
+      description: this.sanitizeString(
+        info.description,
+        this.securityConfig.maxDescriptionLength
+      ),
+      author: this.sanitizeString(
+        info.author,
+        this.securityConfig.maxAuthorLength
+      ),
+      license: info.license || 'MIT',
+    }
   }
 
   /**
    * Nettoyage générique de chaîne
    */
   sanitizeString(str, maxLength) {
-    if (typeof str !== 'string') return '';
-    return str.trim().substring(0, maxLength);
+    if (typeof str !== 'string') return ''
+    return str.trim().substring(0, maxLength)
   }
 
   /**
    * Gestion centralisée des erreurs
    */
   async handleError(error) {
-    console.log(chalk.red.bold('\n❌ Setup Error\n'));
-    
+    console.log(chalk.red.bold('\n❌ Setup Error\n'))
+
     // Éviter d'afficher le message d'erreur si c'est juste chalk.rainbow
-    const errorMessage = error.message.includes('chalk.rainbow') 
+    const errorMessage = error.message.includes('chalk.rainbow')
       ? 'An error occurred during setup. Please update vako: npm install -g vako@latest'
-      : error.message;
-    
+      : error.message
+
     const errorBox = boxen(
       chalk.red('An error occurred during setup:\n\n') +
-      chalk.white(errorMessage) + '\n\n' +
-      chalk.gray('Please try again or report this issue if it persists.'),
+        chalk.white(errorMessage) +
+        '\n\n' +
+        chalk.gray('Please try again or report this issue if it persists.'),
       {
         padding: 1,
         margin: 1,
         borderStyle: 'round',
         borderColor: 'red',
         title: '🚨 Error',
-        titleAlignment: 'center'
+        titleAlignment: 'center',
       }
-    );
+    )
 
-    console.log(errorBox);
-    
-    const { retry } = await inquirer.prompt([{
-      type: 'confirm',
-      name: 'retry',
-      message: '🔄 Would you like to try again?',
-      default: true
-    }]);
+    console.log(errorBox)
+
+    const { retry } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'retry',
+        message: '🔄 Would you like to try again?',
+        default: true,
+      },
+    ])
 
     if (retry) {
-      await this.start();
+      await this.start()
     } else {
-      process.exit(1);
+      process.exit(1)
     }
   }
 }
 
-module.exports = SetupWizard;
+module.exports = SetupWizard
