@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "jest": true,
+    "es2022": true,
+    "browser": true
+  },
+  "globals": {
+    "setTimeout": "readonly",
+    "clearTimeout": "readonly",
+    "setInterval": "readonly",
+    "clearInterval": "readonly",
+    "Buffer": "readonly",
+    "global": "readonly"
+  },
+  "extends": ["standard"],
+  "rules": {
+    "no-console": "warn",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-control-regex": "off",
+    "no-useless-escape": "off",
+    "no-empty": "off",
+    "no-unused-vars": "warn"
+  }
+}
