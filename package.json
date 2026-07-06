@@ -13,7 +13,7 @@
     "dev": "node bin/vako.js dev",
     "build": "node bin/vako.js build",
     "start": "node bin/vako.js start",
-    "test": "jest --coverage",
+    "test": "jest --coverage --passWithNoTests",
     "test:watch": "jest --watch",
     "test:security": "npm audit && node scripts/security-check.js",
     "lint": "eslint lib/ bin/ --fix",
@@ -22,7 +22,8 @@
     "prepublishOnly": "npm test && npm run lint:check",
     "create-app": "node bin/create-vako-app.js",
     "docs": "jsdoc lib/ -d docs/",
-    "benchmark": "node scripts/benchmark.js"
+    "benchmark": "node scripts/benchmark.js",
+    "verify": "node verify-code.js"
   },
   "keywords": [
     "framework",
@@ -80,6 +81,8 @@
     "debug": "^4.3.4",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.10",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-html": "^8.1.4",
     "express": "^4.21.2",
     "express-rate-limit": "^7.1.5",
     "express-session": "^1.17.3",
@@ -90,7 +93,7 @@
     "geoip-lite": "^2.0.3",
     "gradient-string": "^2.0.2",
     "helmet": "^7.1.0",
-    "html-minifier": "^4.0.0",
+    "html-minifier-terser": "^7.2.0",
     "inquirer": "^8.2.6",
     "jimp": "^1.6.1",
     "jsonwebtoken": "^9.0.2",
@@ -112,7 +115,7 @@
     "pg": "^8.11.3",
     "redis": "^4.6.10",
     "semver": "^7.5.4",
-    "sequelize": "^3.30.0",
+    "sequelize": "^6.37.8",
     "sharp": "^0.33.5",
     "slugify": "^1.6.6",
     "sqlite3": "^6.0.1",
@@ -225,6 +228,7 @@
     }
   ],
   "allowScripts": {
-    "sharp@0.33.5": true
+    "sharp@0.33.5": true,
+    "sqlite3@6.0.1": true
   }
 }
